@@ -12,6 +12,19 @@
                     </ol>
                 </section>
 
+                <!-- Error Dialog -->
+                <?php if (isset($_SESSION['error'])): ?>
+                <section class="content-header modal-dialog" id="error-alert">
+                    <div class="row">
+                        <div class="alert alert-<?= $_SESSION['error']['type'] ?> alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa <?= $_SESSION['error']['ico'] ?>"></i> <?= $_SESSION['error']['title'] ?></h4>
+                            <?= $_SESSION['error']['msg']; unset($_SESSION['error']) ?>
+                        </div>
+                    </div>
+                </section>
+                <?php endif; ?>
+
                 <!-- Main content -->
                 <section class="content">
                     <!-- Small boxes (Stat box) -->
@@ -40,12 +53,12 @@
                                         <tr>
                                             <td class="text-center"><?= $item['idLocator'] ?></td>
                                             <td><?= $item['desName'] ?></td>
-                                            <td><?= $item['dtRegister'] ?></td>
+                                            <td><?= date('d/m/Y', strtotime($item['dtRegister'])) ?></td>
                                             <td class="text-center">
                                                 <a href="/locator/update/<?= $item['idLocator'] ?>" class="btn btn-primary btn-xs btn-flat" data-toggle="tooltip" data-placement="top" title data-original-title="Editar">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <a href="/locator/delete/<?= $item['idLocator'] ?>" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" data-placement="top" title data-original-title="Excluir">
+                                                <a href="/locator/<?= $item['idLocator'] ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" data-placement="top" title data-original-title="Excluir">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>

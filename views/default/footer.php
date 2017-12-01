@@ -27,6 +27,8 @@
             <script src="../../lib/plugins/select2/js/select2.full.min.js"></script>
             <!-- Input Mask -->
             <script src="../../lib/plugins/input-mask/jquery.inputmask.js"></script>
+            <!-- jQuery Validate -->
+            <script src="../../lib/plugins/jquery-validation/jquery.validate.min.js"></script>
             <!-- AdminLTE App -->
             <script src="../../lib/template/js/adminlte.min.js"></script>
             <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -35,6 +37,9 @@
             <script src="../../lib/template/js/demo.js"></script>
             <!-- Personal JS -->
             <script src="../../lib/personal/js/personal.js"></script>
+            <?php if($_SESSION['page'] === "locator"): ?>
+            <script src="../../lib/personal/js/locator.js"></script>
+            <?php endif; ?>
 
             <script>
                 var dtables = $('#tables');

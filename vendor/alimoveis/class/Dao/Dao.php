@@ -50,4 +50,9 @@ class Dao
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    /*public function __destruct()
+    {
+        mysqli_close($this->conn);
+    }*/
 }
