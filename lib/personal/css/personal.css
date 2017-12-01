@@ -1,0 +1,8 @@
+.cabecalho {
+    height: 100%;
+    line-height: 100%;
+    white-space: nowrap;
+}
+.select2 {
+    width: 100% !important;
+}
