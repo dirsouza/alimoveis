@@ -29,6 +29,8 @@
             <script src="../../lib/plugins/input-mask/jquery.inputmask.js"></script>
             <!-- jQuery Validate -->
             <script src="../../lib/plugins/jquery-validation/jquery.validate.min.js"></script>
+            <!-- Toastr -->
+            <script src="../../lib/plugins/toastr/js/toastr.min.js"></script>
             <!-- AdminLTE App -->
             <script src="../../lib/template/js/adminlte.min.js"></script>
             <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -37,9 +39,29 @@
             <script src="../../lib/template/js/demo.js"></script>
             <!-- Personal JS -->
             <script src="../../lib/personal/js/personal.js"></script>
-            <?php if($_SESSION['page'] === "locator"): ?>
-            <script src="../../lib/personal/js/locator.js"></script>
-            <?php endif; ?>
+            <?php switch ($_SESSION["page"]):
+                case "locator": ?>
+                    <script src="../../lib/personal/js/locator.js"></script>
+                    <?php break;
+                case "renter": ?>
+                    <script src="../../lib/personal/js/renter.js"></script>
+                    <?php break;
+                case "immobile": ?>
+                    <script src="../../lib/personal/js/immobile.js"></script>
+                    <?php break;
+                case "contract": ?>
+                    <script src="../../lib/personal/js/contract.js"></script>
+                    <?php break;
+                case "discount": ?>
+                    <script src="../../lib/personal/js/discount.js"></script>
+                    <?php break;
+                case "receipt": ?>
+                    <script src="../../lib/personal/js/receipt.js"></script>
+                    <?php break;
+                case "user": ?>
+                    <script src="../../lib/personal/js/user.js"></script>
+                    <?php break;
+            endswitch; ?>
 
             <script>
                 var dtables = $('#tables');

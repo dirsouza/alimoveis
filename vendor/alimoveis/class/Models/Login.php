@@ -32,6 +32,7 @@ class Login extends Model
         if (password_verify($password, $data['desPassword']) === true) {
             $user = new Login();
             $user->setData($data);
+            session_regenerate_id(true);
             $_SESSION[Login::SESSION] = $user->getValues();
             return $user;
         } else {
@@ -48,7 +49,8 @@ class Login extends Model
     // Realiza o logout no Sistema
     public static function logout()
     {
-        $_SESSION[Login::SESSION] = NULL;
+        unset($_SESSION[Login::SESSION]);
+        //$_SESSION[Login::SESSION] = NULL;
     }
 
     // Verifica se o usuário ainda continua logado

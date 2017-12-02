@@ -17,7 +17,7 @@ class MaritalStatus extends Model
                 'type' => "danger",
                 'ico' => "fa-ban",
                 'title' => "Erro",
-                'msg' => "Não foi possível recuperar a lista de Estados Civis.<br>", $e->getMessage()
+                'msg' => "Não foi possível recuperar a lista de Estados Civis.<br>" . $e->getMessage()
             );
             header('location: /locator/create');
             exit;

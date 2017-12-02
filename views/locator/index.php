@@ -12,6 +12,11 @@
                     </ol>
                 </section>
 
+                <!-- Message -->
+                <?php if (!empty($msg)): ?>
+                    <div id="msg" <?= $msg ?>></div>
+                <?php endif; ?>
+
                 <!-- Error Dialog -->
                 <?php if (isset($_SESSION['error'])): ?>
                 <section class="content-header modal-dialog" id="error-alert">

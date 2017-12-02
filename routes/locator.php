@@ -13,12 +13,20 @@ $app->get('/locator', function () use ($app) {
 
     $locator = Locator::listAll();
 
+    if (isset($_SESSION['msg'])) {
+        $msg = 'class="message '.$_SESSION['msg'].'"';
+    } else {
+        $msg = NULL;
+    }
+    unset($_SESSION['msg']);
+
     $_SESSION['page'] = "locator";
 
     $app->render('default/header.php', $user->getValues());
     $app->render('default/panel.php');
     $app->render('locator/index.php', array(
-        'locator' => $locator
+        'locator' => $locator,
+        'msg' => $msg
     ));
     $app->render('default/footer.php');
 });
@@ -67,12 +75,18 @@ $app->get('/locator/update/:idLocator', function ($idLocator) use ($app) {
 
     $locator = Locator::locatorId((int) $idLocator);
 
+    $nationality = Nation::listAll();
+
+    $maritalStatus = MaritalStatus::listAll();
+
     $_SESSION['page'] = "locator";
 
     $app->render('default/header.php', $user->getValues());
     $app->render('default/panel.php');
     $app->render('locator/update.php', array(
-        'locator' => $locator
+        'locator' => $locator[0],
+        'nationality' => $nationality,
+        'maritalStatus' => $maritalStatus
     ));
     $app->render('default/footer.php');
 });

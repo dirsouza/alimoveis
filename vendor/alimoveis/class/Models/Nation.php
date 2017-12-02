@@ -17,7 +17,7 @@ class Nation extends Model
                 'type' => "danger",
                 'ico' => "fa-ban",
                 'title' => "Erro",
-                'msg' => "Não foi possível recuperar a lista de Nascionalidades.<br>", $e->getMessage()
+                'msg' => "Não foi possível recuperar a lista de Nascionalidades.<br>" . $e->getMessage()
             );
             header('location: /locator/create');
             exit;

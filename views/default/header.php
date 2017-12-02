@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bt-br">
+<html lang="pt-br">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,6 +21,8 @@
         <link rel="stylesheet" href="../../lib/plugins/datatables/extension/responsive/css/responsive.bootstrap.min.css">
         <!-- Select2 -->
         <link rel="stylesheet" href="../../lib/plugins/select2/css/select2.min.css">
+        <!-- Toastr -->
+        <link rel="stylesheet" href="../../lib/plugins/toastr/css/toastr.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="../../lib/template/css/AdminLTE.min.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins

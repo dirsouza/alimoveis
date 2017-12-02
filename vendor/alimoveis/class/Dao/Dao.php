@@ -37,22 +37,47 @@ class Dao
     // Realiza a inserção dos dados
     public function allQuery($rawQuery, $params = array())
     {
-        $stmt = $this->conn->prepare($rawQuery);
-        $this->setParams($stmt, $params);
-        $stmt->execute();
+        try {
+            $this->conn->beginTransaction();
+            $stmt = $this->conn->prepare($rawQuery);
+            $this->setParams($stmt, $params);
+            $stmt->execute();
+            $this->conn->commit();
+        } catch (\PDOException $e) {
+            $this->conn->rollBack();
+            throw new \PDOException($e->getMessage());
+        }
     }
 
     // Realiza a consulta ou inserção retornando um array
     public function allSelect($rawQuery, $params = array()):array
     {
-        $stmt = $this->conn->prepare($rawQuery);
-        $this->setParams($stmt, $params);
-        $stmt->execute();
+        try {
+            $this->conn->beginTransaction();
+            $stmt = $this->conn->prepare($rawQuery);
+            $this->setParams($stmt, $params);
+            $stmt->execute();
+            $this->conn->commit();
+        } catch (\PDOException $e) {
+            $this->conn->rollBack();
+            throw new \PDOException($e->getMessage());
+        }
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    /*public function __destruct()
+    // Pegar último id inserido
+    public function lastID($rawQuery)
     {
-        mysqli_close($this->conn);
-    }*/
+        try {
+            $this->conn->beginTransaction();
+            $stmt = $this->conn->prepare($rawQuery);
+            $stmt->execute();
+            $this->conn->commit();
+        } catch (\PDOException $e) {
+            $this->conn->rollBack();
+            throw new \PDOException($e->getMessage());
+        }
+        $id = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $id[0];
+    }
 }
