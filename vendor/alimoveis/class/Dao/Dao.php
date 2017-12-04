@@ -15,9 +15,8 @@ class Dao
     // Conexão com o Banco de Dados
     public function __construct()
     {
-        $this->conn = new \PDO(
-            "mysql:dbname=" . Dao::DBNAME . ";host=" . Dao::HOSTNAME, Dao::USERNAME, Dao::PASSWORD
-        );
+        $this->conn = new \PDO("mysql:dbname=" . Dao::DBNAME . ";host=" . Dao::HOSTNAME, Dao::USERNAME, Dao::PASSWORD);
+        $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
     // Seta os Parâmentros do array e envia para bindParam
@@ -63,21 +62,5 @@ class Dao
             throw new \PDOException($e->getMessage());
         }
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
-    // Pegar último id inserido
-    public function lastID($rawQuery)
-    {
-        try {
-            $this->conn->beginTransaction();
-            $stmt = $this->conn->prepare($rawQuery);
-            $stmt->execute();
-            $this->conn->commit();
-        } catch (\PDOException $e) {
-            $this->conn->rollBack();
-            throw new \PDOException($e->getMessage());
-        }
-        $id = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        return $id[0];
     }
 }

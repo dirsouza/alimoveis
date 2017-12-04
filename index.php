@@ -29,5 +29,6 @@ $app->get('/', function() use ($app) {
 
 require_once "routes/login.php";
 require_once "routes/locator.php";
+require_once "routes/renter.php";
 
 $app->run();

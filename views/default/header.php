@@ -60,25 +60,13 @@
                     </a>
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
-                            <!-- User Account: style can be found in dropdown.less -->
-                            <li class="dropdown user user-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="hidden-xs"><?php $user = explode(" ", $desName); echo $user[0]; ?></span>
+                            <li class="hidden-xs user-login">
+                                <i class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title data-original-title="Usuário"><span> <?php $user = explode(" ", $desName); echo $user[0]; ?></span></i>
+                            </li>
+                            <li>
+                                <a href="/logout">
+                                    <i class="glyphicon glyphicon-log-out"><span class="hidden-xs"> Sair</span></i>
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <!-- User image -->
-                                    <li class="user-header">
-                                        <p>
-                                            <?= $desName ?>
-                                        </p>
-                                    </li>
-                                    <!-- Menu Footer-->
-                                    <li class="user-footer">
-                                        <div class="pull-right">
-                                            <a href="/logout" class="btn bg-purple btn-flat">Logout</a>
-                                        </div>
-                                    </li>
-                                </ul>
                             </li>
                         </ul>
                     </div>

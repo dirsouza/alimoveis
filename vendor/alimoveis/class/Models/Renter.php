@@ -6,13 +6,13 @@ use ALImoveis\Dao\Dao;
 use ALImoveis\Model;
 use ALImoveis\Models\Validate;
 
-class Locator extends Model
+class Renter extends Model
 {
     public static function listAll()
     {
         try {
             $sql = new Dao();
-            return $sql->allSelect("SELECT * FROM tblocator ORDER BY idLocator");
+            return $sql->allSelect("SELECT * FROM tbrenter ORDER BY idRenter");
         } catch (\PDOException $e) {
             $_SESSION['error'] = array(
                 'type' => "danger",
@@ -20,17 +20,17 @@ class Locator extends Model
                 'title' => "Erro",
                 'msg' => "Não foi possível recuperar os registros.<br>" . $e->getMessage()
             );
-            header('location: /locator');
+            header("location: /renter");
             exit;
         }
     }
 
-    public static function locatorId($id)
+    public static function renterId($id)
     {
         try {
             $sql = new Dao();
-            return $sql->allSelect("SELECT * FROM tblocator WHERE idLocator = :IDLOCATOR", array(
-                ':IDLOCATOR' => $id
+            return $sql->allSelect("SELECT * FROM tbrenter WHERE idRenter = :IDRENTER", array(
+                ':IDRENTER' => $id
             ));
         } catch (\PDOException $e) {
             $_SESSION['error'] = array(
@@ -39,7 +39,7 @@ class Locator extends Model
                 'title' => "Erro",
                 'msg' => "Não foi possível recuperar o registro.<br>" . $e->getMessage()
             );
-            header('location: /locator');
+            header('location: /renter');
             exit;
         }
     }
@@ -48,10 +48,10 @@ class Locator extends Model
     {
         try {
             $sql = new Dao();
-            $restult = $sql->allSelect("SELECT * FROM tblocator WHERE idLocator = :IDLOCATOR", array(
-                ':IDLOCATOR' => $id
+            $result = $sql->allSelect("SELECT * FROM tbrenter WHERE idRenter = :IDRENTER", array(
+                ':IDRENTER' => $id
             ));
-            $this->setData($restult[0]);
+            $this->setData($result[0]);
         } catch (\PDOException $e) {
             $_SESSION['error'] = array(
                 'type' => "danger",
@@ -59,7 +59,7 @@ class Locator extends Model
                 'title' => "Erro",
                 'msg' => "Não foi possível recuperar o registro para atualização.<br>" . $e->getMessage()
             );
-            header('location: /locator/update/' . $id);
+            header('location: /renter/update/' . $id);
             exit;
         }
     }
@@ -75,21 +75,21 @@ class Locator extends Model
                     'msg' => "CPF informado já foi registrado para outro Locador."
                 );
                 $this->restoreData();
-                header("location: /locator/create");
+                header("location: /renter/create");
                 exit;
             } else {
                 if (Validate::validateCPF($this->getdesCPF())) {
                     try {
                         $sql = new Dao();
-                        $sql->allQuery("INSERT INTO tblocator(desName, idNation, idMaritalStatus, desProfession, desRG, desCPF)
+                        $sql->allQuery("INSERT INTO tbrenter(desName, idNation, idMaritalStatus, desProfession, desRG, desCPF)
                             VALUES(:DESNAME, :IDNATION, :IDMARITALSTATUS, :DESPROFESSION, :DESRG, :DESCPF)", array(
-                                ':DESNAME' => $this->getdesName(),
-                                ':IDNATION' => $this->getidNation(),
-                                ':IDMARITALSTATUS' => $this->getidMaritalStatus(),
-                                ':DESPROFESSION' => $this->getdesProfession(),
-                                ':DESRG' => $this->getdesRG(),
-                                ':DESCPF' => $this->getdesCPF()
-                            ));
+                            ':DESNAME' => $this->getdesName(),
+                            ':IDNATION' => $this->getidNation(),
+                            ':IDMARITALSTATUS' => $this->getidMaritalStatus(),
+                            ':DESPROFESSION' => $this->getdesProfession(),
+                            ':DESRG' => $this->getdesRG(),
+                            ':DESCPF' => $this->getdesCPF()
+                        ));
                         if ($this->verifyInsertData()) {
                             $_SESSION['msg'] = 'insert-success';
                         } else {
@@ -103,7 +103,7 @@ class Locator extends Model
                             'msg' => "Não foi possível inserir o registro.<br>" . $e->getMessage()
                         );
                         $this->restoreData();
-                        header("location: /locator/create");
+                        header("location: /renter/create");
                         exit;
                     }
                 } else {
@@ -114,7 +114,7 @@ class Locator extends Model
                         'msg' => "CPF informado não é válido."
                     );
                     $this->restoreData();
-                    header("location: /locator/create");
+                    header("location: /renter/create");
                     exit;
                 }
             }
@@ -126,7 +126,7 @@ class Locator extends Model
                 'msg' => "Estão faltando dados necessários para o registro."
             );
             $this->restoreData();
-            header("location: /locator/create");
+            header("location: /renter/create");
             exit;
         }
     }
@@ -136,11 +136,11 @@ class Locator extends Model
         if ($this->verifyData()) {
             if ($this->verifyCpfRegistered()) {
                 if (Validate::validateCPF($this->getdesCPF())) {
-                    $dataBebore = $this->setDataRecover($this->getidLocator());
+                    $dataBebore = $this->setDataRecover($this->getidRenter());
                     try {
                         $sql = new Dao();
-                        $sql->allQuery("UPDATE tblocator SET desName = :DESNAME, idNation = :IDNATION, idMaritalStatus = :IDMARITALSTATUS, desProfession = :DESPROFESSION, desRG = :DESRG, desCPF = :DESCPF WHERE idLocator = :IDLOCATOR", array(
-                            ':IDLOCATOR' => $this->getidLocator(),
+                        $sql->allQuery("UPDATE tbrenter SET desName = :DESNAME, idNation = :IDNATION, idMaritalStatus = :IDMARITALSTATUS, desProfession = :DESPROFESSION, desRG = :DESRG, desCPF = :DESCPF WHERE idRenter = :IDRENTER", array(
+                            ':IDRENTER' => $this->getidRenter(),
                             ':DESNAME' => $this->getdesName(),
                             ':IDNATION' => $this->getidNation(),
                             ':IDMARITALSTATUS' => $this->getidMaritalStatus(),
@@ -148,7 +148,7 @@ class Locator extends Model
                             ':DESRG' => $this->getdesRG(),
                             ':DESCPF' => $this->getdesCPF()
                         ));
-                        if ($this->compareData($this->getidLocator(), $dataBebore)) {
+                        if ($this->compareData($this->getidRenter(), $dataBebore)) {
                             $_SESSION['msg'] = "update-success";
                         } else {
                             $_SESSION['msg'] = "update-info";
@@ -160,7 +160,7 @@ class Locator extends Model
                             'title' => "Erro",
                             'msg' => "Não foi possível atualizar o registro.<br>" . $e->getMessage()
                         );
-                        header('location: /locator/update/' . $this->getidLocator());
+                        header('location: /renter/update/' . $this->getidRenter());
                         exit;
                     }
                 } else {
@@ -170,7 +170,7 @@ class Locator extends Model
                         'title' => "Aviso",
                         'msg' => "CPF informado para atulização não é válido."
                     );
-                    header("location: /locator/update/" . $this->getidLocator());
+                    header("location: /renter/update/" . $this->getidRenter());
                     exit;
                 }
             } else {
@@ -180,7 +180,7 @@ class Locator extends Model
                     'title' => "Aviso",
                     'msg' => "CPF informado já foi registrado para outro Locador."
                 );
-                header("location: /locator/update/" . $this->getidLocator());
+                header("location: /renter/update/" . $this->getidRenter());
                 exit;
             }
         } else {
@@ -190,7 +190,7 @@ class Locator extends Model
                 'title' => "Informação",
                 'msg' => "Estão faltando dados necessários para a atualização do registro."
             );
-            header("location: /locator/update/" . $this->getidLocator());
+            header("location: /renter/update/" . $this->getidRenter());
             exit;
         }
     }
@@ -199,10 +199,10 @@ class Locator extends Model
     {
         try {
             $sql = new Dao();
-            $sql->allQuery("DELETE FROM tblocator WHERE idLocator = :IDLOCATOR", array(
-                ':IDLOCATOR' => $this->getidLocator()
+            $sql->allQuery("DELETE FROM tbrenter WHERE idRenter = :IDRENTER", array(
+                ':IDRENTER' => $this->getidRenter()
             ));
-            $dataRecover = $this->setDataRecover($this->getidLocator());
+            $dataRecover = $this->setDataRecover($this->getidRenter());
             if (is_array($dataRecover) && count($dataRecover) > 0) {
                 $_SESSION['msg'] = "delete-error";
             } else {
@@ -215,7 +215,7 @@ class Locator extends Model
                 'title' => "Erro",
                 'msg' => "Não foi possível deletar o registro.<br>" . $e->getMessage()
             );
-            header('location: /locator');
+            header('location: /renter');
             exit;
         }
     }
@@ -252,7 +252,7 @@ class Locator extends Model
     {
         try {
             $sql = new Dao();
-            $result = $sql->allSelect("SELECT * FROM tblocator WHERE desCPF = :DESCPF", array(
+            $result = $sql->allSelect("SELECT * FROM tbrenter WHERE desCPF = :DESCPF", array(
                 ':DESCPF' => $this->getdesCPF()
             ));
 
@@ -267,7 +267,7 @@ class Locator extends Model
                 'msg' => "Não foi possível verificar se o CPF informado já consta no Banco de Dados.<br>" . $e->getMessage()
             );
             $this->restoreData();
-            header("location: /locator/create");
+            header("location: /renter/create");
             exit;
         }
         return false;
@@ -277,12 +277,12 @@ class Locator extends Model
     {
         try {
             $sql = new Dao();
-            $result = $sql->allSelect("SELECT * FROM tblocator WHERE desCPF = :DESCPF", array(
+            $result = $sql->allSelect("SELECT * FROM tbrenter WHERE desCPF = :DESCPF", array(
                 ':DESCPF' => $this->getdesCPF()
             ));
 
             if (is_array($result) && count($result) > 0) {
-                if ($result[0]['idLocator'] === $this->getidLocator()) {
+                if ($result[0]['idRenter'] === $this->getidRenter()) {
                     return true;
                 }
             }
@@ -291,9 +291,9 @@ class Locator extends Model
                 'type' => "danger",
                 'ico' => "fa-ban",
                 'title' => "Erro",
-                'msg' => "Não foi possível verificar se o Locador é proprietário do CPF informado.<br>" . $e->getMessage()
+                'msg' => "Não foi possível verificar se o CPF informado pertence à ". $this->getdesName() ."<br>" . $e->getMessage()
             );
-            header("location: /locator/update/" . $this->getidLocator());
+            header("location: /renter/update/" . $this->getidRenter());
             exit;
         }
         return false;
@@ -303,7 +303,7 @@ class Locator extends Model
     {
         try {
             $sql = new Dao();
-            $result = $sql->allSelect("SELECT * FROM tblocator WHERE desCPF = :DESCPF", array(
+            $result = $sql->allSelect("SELECT * FROM tbrenter WHERE desCPF = :DESCPF", array(
                 ':DESCPF' => $this->getdesCPF()
             ));
 
@@ -322,8 +322,8 @@ class Locator extends Model
     {
         try {
             $sql = new Dao();
-            $result = $sql->allSelect("SELECT * FROM tblocator WHERE idLocator = :IDLOCATOR", array(
-                ':IDLOCATOR' => $id
+            $result = $sql->allSelect("SELECT * FROM tbrenter WHERE idRenter = :IDRENTER", array(
+                ':IDRENTER' => $id
             ));
             if (count($result) > 0) {
                 return $result[0];
@@ -338,10 +338,13 @@ class Locator extends Model
     private function compareData($id, $dataBefore = array())
     {
         $dataAfter = $this->setDataRecover($id);
+
         $result = array_diff($dataBefore, $dataAfter);
+
         if (count($result) > 0) {
             return true;
         }
+
         return false;
     }
 

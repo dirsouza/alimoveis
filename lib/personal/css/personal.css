@@ -10,3 +10,19 @@
 .table {
     width: 100% !important;
 }
+
+.navbar-custom-menu span {
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.user-login {
+    margin-top: 15px !important;
+    margin-right: 5px !important;
+    color: #FFFFFF;
+}
+
+@media only screen and (max-width: 768px) {
+    .dropdown-toggle {
+        display: none !important;
+    }
+}

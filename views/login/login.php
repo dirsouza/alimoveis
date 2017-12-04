@@ -51,7 +51,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-4 pull-right">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
                         </div>
                         <!-- /.col -->
                     </div>

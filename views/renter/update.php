@@ -8,7 +8,7 @@
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="/locator"><i class="fa fa-black-tie"></i> Locador</a></li>
+                        <li><a href="/renter"><i class="fa fa-black-tie"></i> Locatário</a></li>
                         <li class="active"><i class="fa fa-pencil"></i> Atualizar Dados do Locador</li>
                     </ol>
                 </section>
@@ -40,14 +40,14 @@
                                 <!-- box-body -->
                                 <div class="box-body">
                                     <!-- form start -->
-                                    <form id="frmLocator" action="/locator/update/<?= $locator['idLocator'] ?>" method="post">
+                                    <form id="frmRenter" action="/renter/update/<?= $renter['idRenter'] ?>" method="post">
                                         <!-- box body -->
                                         <div class="box-body">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="desName">Nome Completo:</label>
-                                                        <input type="text" name="desName" class="form-control" id="desName" maxlength="100" value="<?= $locator['desName'] ?>" placeholder="Nome Completo" autofocus>
+                                                        <input type="text" name="desName" class="form-control" id="desName" maxlength="100" value="<?= $renter['desName'] ?>" placeholder="Nome Completo" autofocus>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
@@ -56,7 +56,7 @@
                                                         <select name="idNation" id="idNation" class="form-control select">
                                                             <?php foreach ($nationality as $item): ?>
                                                             <optgroup label="<?= $item['desNation'] ?>"></optgroup>
-                                                            <option value="<?= $item['idNation'] ?>" <?php if ($item['idNation'] === $locator['idNation']): ?> selected <?php endif; ?>><?= $item['desNationality'] ?></option>
+                                                            <option value="<?= $item['idNation'] ?>" <?php if ($item['idNation'] === $renter['idNation']): ?> selected <?php endif; ?>><?= $item['desNationality'] ?></option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>
@@ -66,7 +66,7 @@
                                                         <label for="idMaritalStatus">Estado Civil:</label>
                                                         <select name="idMaritalStatus" id="idMaritalStatus" class="form-control select">
                                                             <?php foreach ($maritalStatus as $item): ?>
-                                                                <option value="<?= $item['idMaritalStatus'] ?>" <?php if ($item['idMaritalStatus'] === $locator['idMaritalStatus']): ?> selected <?php endif; ?>><?= $item['desMaritalStatus'] ?></option>
+                                                                <option value="<?= $item['idMaritalStatus'] ?>" <?php if ($item['idMaritalStatus'] === $renter['idMaritalStatus']): ?> selected <?php endif; ?>><?= $item['desMaritalStatus'] ?></option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>
@@ -76,19 +76,19 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="desProfession">Profissão:</label>
-                                                        <input type="text" name="desProfession" class="form-control" maxlength="100" id="desProfession" value="<?= $locator['desProfession'] ?>" placeholder="Profissão">
+                                                        <input type="text" name="desProfession" class="form-control" maxlength="100" id="desProfession" value="<?= $renter['desProfession'] ?>" placeholder="Profissão">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="desRG">RG:</label>
-                                                        <input type="text" name="desRG" class="form-control" maxlength="20" id="desRG" value="<?= $locator['desRG'] ?>" placeholder="RG">
+                                                        <input type="text" name="desRG" class="form-control" maxlength="20" id="desRG" value="<?= $renter['desRG'] ?>" placeholder="RG">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="desCPF">CPF:</label>
-                                                        <input type="text" name="desCPF" class="form-control" id="desCPF" value="<?= $locator['desCPF'] ?>" placeholder="CPF" readonly>
+                                                        <input type="text" name="desCPF" class="form-control" id="desCPF" value="<?= $renter['desCPF'] ?>" placeholder="CPF" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -96,7 +96,7 @@
                                         <!-- box footer -->
                                         <div class="box-footer modal-footer">
                                             <button type="submit" class="btn btn-flat btn-primary">Atualizar</button>
-                                            <button type="button" class="btn btn-flat bg-orange" onclick="javascript: location.href='/locator'">Cancelar</button>
+                                            <button type="button" class="btn btn-flat bg-orange" onclick="javascript: location.href='/renter'">Cancelar</button>
                                         </div>
                                     </form>
                                 </div>
