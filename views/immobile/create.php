@@ -8,7 +8,7 @@
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="/immobile"><i class="fa fa-black-tie"></i> Imóvel</a></li>
+                        <li><a href="/immobile"><i class="fa fa-home"></i> Imóvel</a></li>
                         <li class="active"><i class="fa fa-plus"></i> Novo Registro</li>
                     </ol>
                 </section>

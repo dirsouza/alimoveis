@@ -51,6 +51,8 @@
                     <?php break;
                 case "contract": ?>
                     <script src="../../lib/personal/js/contract.js"></script>
+                    <script src="../../lib/plugins/jquery-maskmoney/js/jquery.maskMoney.min.js"></script>
+                    <script src="../../lib/plugins/moment/js/moment.js"></script>
                     <?php break;
                 case "discount": ?>
                     <script src="../../lib/personal/js/discount.js"></script>

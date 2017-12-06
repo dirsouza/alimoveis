@@ -31,5 +31,6 @@ require_once "routes/login.php";
 require_once "routes/locator.php";
 require_once "routes/renter.php";
 require_once "routes/immobile.php";
+require_once "routes/contract.php";
 
 $app->run();

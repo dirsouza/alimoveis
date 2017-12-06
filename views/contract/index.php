@@ -4,11 +4,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Lista de Locatários
+                        Lista de Contratos
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active"><i class="fa fa-user"></i> Locatário</li>
+                        <li class="active"><i class="glyphicon glyphicon-list-alt"></i> Contrato</li>
                     </ol>
                 </section>
 
@@ -39,7 +39,7 @@
                             <div class="box box-primary">
                                 <!-- box-header -->
                                 <div class="box-header with-border">
-                                    <a href="/renter/create" class="btn btn-flat bg-olive">Novo Locatário</a>
+                                    <a href="/contract/create" class="btn btn-flat bg-olive">Novo Contrato</a>
                                 </div>
                                 <!-- box-body -->
                                 <div class="box-body">
@@ -48,22 +48,28 @@
                                         <thead>
                                         <tr>
                                             <th width="3%" class="text-center">#</th>
-                                            <th>Nome Completo</th>
-                                            <th width="10%" class="text-center">Dt. Registro</th>
+                                            <th width="23%">Locador</th>
+                                            <th width="23%">Locatário</th>
+                                            <th>Imóvel</th>
+                                            <th width="10%" class="text-center">Dt. Inicial</th>
+                                            <th width="10%" class="text-center">Dt. Final</th>
                                             <th data-orderable="false" width="7%">&nbsp;</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <?php foreach ($renter as $item): ?>
+                                        <?php foreach ($contract as $item): ?>
                                         <tr>
-                                            <td class="text-center"><?= $item['idRenter'] ?></td>
-                                            <td><?= $item['desName'] ?></td>
-                                            <td><?= date('d/m/Y', strtotime($item['dtRegister'])) ?></td>
+                                            <td class="text-center"><?= $item['desCode'] ?></td>
+                                            <td><?= $item['desLocator'] ?></td>
+                                            <td><?= $item['desRenter'] ?></td>
+                                            <td><?= $item['desImmobile'] ?></td>
+                                            <td><?= $item['dtInitial'] ?></td>
+                                            <td><?= $item['dtFinal'] ?></td>
                                             <td class="text-center">
-                                                <a href="/renter/update/<?= $item['idRenter'] ?>" class="btn btn-primary btn-xs btn-flat" data-toggle="tooltip" data-placement="top" title data-original-title="Editar">
+                                                <a href="/contract/update/<?= $item['idContract'] ?>" class="btn btn-primary btn-xs btn-flat" data-toggle="tooltip" data-placement="top" title data-original-title="Editar">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <a href="/renter/<?= $item['idRenter'] ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" data-placement="top" title data-original-title="Excluir">
+                                                <a href="/contract/<?= $item['idContract'] ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" data-placement="top" title data-original-title="Excluir">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>
