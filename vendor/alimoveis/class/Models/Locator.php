@@ -81,14 +81,20 @@ class Locator extends Model
                 if (Validate::validateCPF($this->getdesCPF())) {
                     try {
                         $sql = new Dao();
-                        $sql->allQuery("INSERT INTO tblocator(desName, idNation, idMaritalStatus, desProfession, desRG, desCPF)
-                            VALUES(:DESNAME, :IDNATION, :IDMARITALSTATUS, :DESPROFESSION, :DESRG, :DESCPF)", array(
+                        $sql->allQuery("INSERT INTO tblocator(desName, idNation, idMaritalStatus, desProfession, desRG, desCPF, desZipCode, desAddress, desNumber, desDistrict, desCity, desState)
+                            VALUES(:DESNAME, :IDNATION, :IDMARITALSTATUS, :DESPROFESSION, :DESRG, :DESCPF, :DESZIPCODE, :DESADDRESS, :DESNUMBER, :DESDISTRICT, :DESCITY, :DESSTATE)", array(
                                 ':DESNAME' => $this->getdesName(),
                                 ':IDNATION' => $this->getidNation(),
                                 ':IDMARITALSTATUS' => $this->getidMaritalStatus(),
                                 ':DESPROFESSION' => $this->getdesProfession(),
                                 ':DESRG' => $this->getdesRG(),
-                                ':DESCPF' => $this->getdesCPF()
+                                ':DESCPF' => $this->getdesCPF(),
+                                ':DESZIPCODE' => $this->getdesZipCode(),
+                                ':DESADDRESS' => $this->getdesAddress(),
+                                ':DESNUMBER' => $this->getdesNumber(),
+                                ':DESDISTRICT' => $this->getdesDistrict(),
+                                ':DESCITY' => $this->getdesCity(),
+                                ':DESSTATE' => $this->getdesState()
                             ));
                         if ($this->verifyInsertData()) {
                             $_SESSION['msg'] = 'insert-success';
@@ -139,14 +145,20 @@ class Locator extends Model
                     $dataBebore = $this->setDataRecover($this->getidLocator());
                     try {
                         $sql = new Dao();
-                        $sql->allQuery("UPDATE tblocator SET desName = :DESNAME, idNation = :IDNATION, idMaritalStatus = :IDMARITALSTATUS, desProfession = :DESPROFESSION, desRG = :DESRG, desCPF = :DESCPF WHERE idLocator = :IDLOCATOR", array(
+                        $sql->allQuery("UPDATE tblocator SET desName = :DESNAME, idNation = :IDNATION, idMaritalStatus = :IDMARITALSTATUS, desProfession = :DESPROFESSION, desRG = :DESRG, desCPF = :DESCPF, desZipCode = :DESZIPCODE, desAddress = :DESADDRESS, desNumber = :DESNUMBER, desDistrict = :DESDISTRICT, desCity = :DESCITY, desState = :DESSTATE WHERE idLocator = :IDLOCATOR", array(
                             ':IDLOCATOR' => $this->getidLocator(),
                             ':DESNAME' => $this->getdesName(),
                             ':IDNATION' => $this->getidNation(),
                             ':IDMARITALSTATUS' => $this->getidMaritalStatus(),
                             ':DESPROFESSION' => $this->getdesProfession(),
                             ':DESRG' => $this->getdesRG(),
-                            ':DESCPF' => $this->getdesCPF()
+                            ':DESCPF' => $this->getdesCPF(),
+                            ':DESZIPCODE' => $this->getdesZipCode(),
+                            ':DESADDRESS' => $this->getdesAddress(),
+                            ':DESNUMBER' => $this->getdesNumber(),
+                            ':DESDISTRICT' => $this->getdesDistrict(),
+                            ':DESCITY' => $this->getdesCity(),
+                            ':DESSTATE' => $this->getdesState()
                         ));
                         if ($this->compareData($this->getidLocator(), $dataBebore)) {
                             $_SESSION['msg'] = "update-success";
@@ -243,6 +255,34 @@ class Locator extends Model
         }
 
         if (empty(trim($this->getdesCPF()))) {
+            return false;
+        }
+
+        if (empty(trim($this->getdesZipCode()))) {
+            return false;
+        }
+
+        if (empty(trim($this->getdesAddress()))) {
+            return false;
+        }
+
+        if (array_key_exists("desNumber", $this->getValues())) {
+            if (empty(trim($this->getdesNumber()))) {
+                $this->setData(array('desNumber' => "S/N"));
+            }
+        } else {
+            $this->setData(array('desNumber' => "S/N"));
+        }
+
+        if (empty(trim($this->getdesDistrict()))) {
+            return false;
+        }
+
+        if (empty(trim($this->getdesCity()))) {
+            return false;
+        }
+
+        if (empty(trim($this->getdesState()))) {
             return false;
         }
         return true;

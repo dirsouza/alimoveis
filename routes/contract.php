@@ -116,3 +116,9 @@ $app->get('/contract/:idContract/delete', function ($idContract) {
     header("location: /contract");
     exit;
 });
+
+$app->get('/contract/contract/:desCode', function ($desCode) use ($app) {
+    Login::verifyLogin();
+
+    $app->render('/contract/contract.php');
+});

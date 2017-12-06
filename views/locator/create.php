@@ -44,14 +44,14 @@
                                         <!-- box body -->
                                         <div class="box-body">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="desName">Nome Completo:</label>
                                                         <input type="text" name="desName" class="form-control" id="desName" maxlength="100" placeholder="Nome Completo" autofocus
                                                         <?php if (!empty($data)): ?> value="<?= $data['desName'] ?>" <?php endif; ?>>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="idNation">Nascionalidade:</label>
                                                         <select name="idNation" id="idNation" class="form-control select">
@@ -62,7 +62,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="idMaritalStatus">Estado Civil:</label>
                                                         <select name="idMaritalStatus" id="idMaritalStatus" class="form-control select">
@@ -72,28 +72,60 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="desProfession">Profissão:</label>
                                                         <input type="text" name="desProfession" class="form-control" maxlength="100" id="desProfession" placeholder="Profissão"
-                                                        <?php if (!empty($data)): ?> value="<?= $data['desProfession'] ?>" <?php endif; ?>>
+                                                            <?php if (!empty($data)): ?> value="<?= $data['desProfession'] ?>" <?php endif; ?>>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desRG">RG:</label>
                                                         <input type="text" name="desRG" class="form-control" maxlength="20" id="desRG" placeholder="RG"
                                                         <?php if (!empty($data)): ?> value="<?= $data['desRG'] ?>" <?php endif; ?>>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desCPF">CPF:</label>
                                                         <input type="text" name="desCPF" class="form-control" id="desCPF" placeholder="CPF"
                                                         <?php if (!empty($data)): ?> value="<?= $data['desCPF'] ?>" <?php endif; ?>>
                                                     </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="desZipCode">CEP:</label>
+                                                    <input type="text" name="desZipCode" id="desZipCode" class="form-control" placeholder="CEP"
+                                                        <?php if (!empty($data)): ?> value="<?= $data['desZipCode'] ?>" <?php endif; ?>>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="desAddress">Endereço:</label>
+                                                    <input type="text" name="desAddress" id="desAddress" class="form-control" placeholder="Endereço"
+                                                        <?php if (!empty($data)): ?> value="<?= $data['desAddress'] ?>" <?php endif; ?>>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                    <label for="desNumber">Nº:</label>
+                                                    <input type="text" name="desNumber" id="desNumber" class="form-control" placeholder="Nº"
+                                                        <?php if (!empty($data)): ?> value="<?= $data['desNumber'] ?>" <?php endif; ?>>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <label for="desDistrict">Bairro:</label>
+                                                    <input type="text" name="desDistrict" id="desDistrict" class="form-control" placeholder="Bairro"
+                                                        <?php if (!empty($data)): ?> value="<?= $data['desDistrict'] ?>" <?php endif; ?>>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <label for="desCity">Cidade:</label>
+                                                    <input type="text" name="desCity" id="desCity" class="form-control" placeholder="Cidade"
+                                                        <?php if (!empty($data)): ?> value="<?= $data['desCity'] ?>" <?php endif; ?>>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <label for="desState">UF:</label>
+                                                    <input type="text" name="desState" id="desState" class="form-control" placeholder="UF"
+                                                        <?php if (!empty($data)): ?> value="<?= $data['desState'] ?>" <?php endif; ?>>
                                                 </div>
                                             </div>
                                         </div>

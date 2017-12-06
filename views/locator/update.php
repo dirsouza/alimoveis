@@ -44,13 +44,13 @@
                                         <!-- box body -->
                                         <div class="box-body">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="desName">Nome Completo:</label>
                                                         <input type="text" name="desName" class="form-control" id="desName" maxlength="100" value="<?= $locator['desName'] ?>" placeholder="Nome Completo" autofocus>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="idNation">Nascionalidade:</label>
                                                         <select name="idNation" id="idNation" class="form-control select">
@@ -61,7 +61,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="idMaritalStatus">Estado Civil:</label>
                                                         <select name="idMaritalStatus" id="idMaritalStatus" class="form-control select">
@@ -71,24 +71,62 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="desProfession">Profissão:</label>
                                                         <input type="text" name="desProfession" class="form-control" maxlength="100" id="desProfession" value="<?= $locator['desProfession'] ?>" placeholder="Profissão">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desRG">RG:</label>
                                                         <input type="text" name="desRG" class="form-control" maxlength="20" id="desRG" value="<?= $locator['desRG'] ?>" placeholder="RG">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desCPF">CPF:</label>
                                                         <input type="text" name="desCPF" class="form-control" id="desCPF" value="<?= $locator['desCPF'] ?>" placeholder="CPF" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="desZipCode">CEP:</label>
+                                                        <input type="text" name="desZipCode" class="form-control" id="desZipCode" value="<?= $locator['desZipCode'] ?>" placeholder="CEP">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="desAddress">Endereço:</label>
+                                                        <input type="text" name="desAddress" class="form-control" id="desAddress" value="<?= $locator['desAddress'] ?>" placeholder="Endereço">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                    <div class="form-group">
+                                                        <label for="desNumber">Nº:</label>
+                                                        <input type="text" name="desNumber" id="desNumber" class="form-control" value="<?= $locator['desNumber'] ?>" placeholder="Nº">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="form-group">
+                                                        <label for="desDistrict">Bairro:</label>
+                                                        <input type="text" name="desDistrict" id="desDistrict" class="form-control" value="<?= $locator['desDistrict'] ?>" placeholder="Bairro">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="form-group">
+                                                        <label for="desCity">Cidade:</label>
+                                                        <input type="text" name="desCity" id="desCity" class="form-control" value="<?= $locator['desCity'] ?>" placeholder="Cidade">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <div class="form-group">
+                                                        <label for="desState">UF:</label>
+                                                        <input type="text" name="desState" id="desState" class="form-control" value="<?= $locator['desState'] ?>" placeholder="UF">
                                                     </div>
                                                 </div>
                                             </div>

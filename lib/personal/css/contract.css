@@ -1,0 +1,97 @@
+* {
+    box-sizing: border-box;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+html, body {
+    position: relative;
+    margin: 0 auto;
+    font-size: 13px;
+    width: 95%;
+    height: 100%;
+    min-height: 100%;
+}
+p {
+    text-indent: 3em;
+    line-height: 2em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+p.locateDate {
+    text-align: right;
+    margin-top: 30px;
+}
+p.witnesses {
+    text-align: left;
+    margin-top: 30px;
+    margin-left: -34px;
+}
+ol {
+    margin: 0;
+    padding-left: 19px;
+}
+ol.sub {
+    padding-left: 13px;
+}
+li {
+    line-height: 2em;
+    margin-bottom: 10px;
+}
+hr {
+    margin: 0 auto;
+}
+table {
+    width: 100%;
+    border: none;
+    text-align: center;
+    margin-top: 70px;
+}
+.header-top {
+    position: absolute;
+    width: 100%;
+}
+.row {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.row div {
+    float: left;
+}
+.row div.item-left {
+    width: 50%;
+    text-align: left;
+    font-size: 10px;
+}
+.row div.item-right {
+    width: 50%;
+    text-align: right;
+    font-size: 10px;
+}
+.header-title {
+    position: absolute;
+    width: 100%;
+    margin-top: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+.header-content {
+    position: absolute;
+    width: 100%;
+    margin-top: 130px;
+    text-align: justify;
+}
+.header-content b {
+    text-transform: uppercase;
+}
+.header-content div.item-content {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 23px;
+}

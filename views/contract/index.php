@@ -40,6 +40,7 @@
                                 <!-- box-header -->
                                 <div class="box-header with-border">
                                     <a href="/contract/create" class="btn btn-flat bg-olive">Novo Contrato</a>
+                                    <a href="/contract/contract" class="btn btn-flat bg-aqua" target="_blank">Contrato</a>
                                 </div>
                                 <!-- box-body -->
                                 <div class="box-body">
