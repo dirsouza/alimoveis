@@ -5,6 +5,7 @@ use ALImoveis\Models\Contract;
 use ALImoveis\Models\Locator;
 use ALImoveis\Models\Renter;
 use ALImoveis\Models\Immobile;
+use ALImoveis\Models\GExtenso;
 
 $app->get('/contract', function () use ($app) {
     Login::verifyLogin();
@@ -120,5 +121,20 @@ $app->get('/contract/:idContract/delete', function ($idContract) {
 $app->get('/contract/contract/:desCode', function ($desCode) use ($app) {
     Login::verifyLogin();
 
-    $app->render('/contract/contract.php');
+    $contract = Contract::viewContract($desCode);
+    $locator = Locator::locatorDetails($contract['idLocator']);
+    $renter = Renter::renterDetails($contract['idRenter']);
+    $immobile = Immobile::immobileId($contract['idImmobile']);
+    $valueFull = GExtenso::moeda(preg_replace('/[.,]/', "",number_format($contract['desValue'], 2, ",", ".")));
+    $mesFull = GExtenso::numero($contract['desDeadline']);
+    $dateFull = GExtenso::numero(preg_replace('/[0]/', "", date('d', strtotime($contract['dtInitial']))));
+    $app->render('/contract/contract.php', array(
+        'contract' => $contract,
+        'locator' => $locator,
+        'renter' => $renter,
+        'immobile' => $immobile[0],
+        'valueFull' => $valueFull,
+        'mesFull' => $mesFull,
+        'dateFull' => $dateFull
+    ));
 });

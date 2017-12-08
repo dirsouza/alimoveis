@@ -44,6 +44,36 @@ class Renter extends Model
         }
     }
 
+    public static function renterDetails($id)
+    {
+        try {
+            $sql = new Dao();
+            $result = $sql->allSelect("SELECT	tbrenter.desName,
+                                                tbnation.desNationality,
+                                                tbmaritalstatus.desMaritalStatus,
+                                                tbrenter.desProfession,
+                                                tbrenter.desRG,
+                                                tbrenter.desCPF
+                                        FROM tbrenter INNER JOIN tbnation USING(idNation)
+                                        INNER JOIN tbmaritalstatus USING(idMaritalStatus)
+                                        WHERE tbrenter.idRenter = :IDRENTER", array(
+                                            ':IDRENTER' => $id
+                                        ));
+            if (is_array($result) && count($result) > 0) {
+                return $result[0];
+            }
+        } catch (\PDOException $e) {
+            $_SESSION['error'] = array(
+                'type' => "danger",
+                'ico' => "fa-ban",
+                'title' => "Erro",
+                'msg' => "Não foi possível recuperar o registro detalhado.<br>" . $e->getMessage()
+            );
+            header('location: /contract');
+            exit;
+        }
+    }
+
     public function getData($id)
     {
         try {

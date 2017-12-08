@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="shortcut icon" type="image/png" href="../../src/img/favicon.png">
         <title>ALImóveis</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -48,9 +49,13 @@
                 <!-- Logo -->
                 <a href="/" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
-                    <span class="logo-mini"><b>ALI</b></span>
+                    <span class="logo-mini">
+                        <img src="../../src/img/ALI.png" alt="ALI">
+                    </span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>ALI</b>móveis</span>
+                    <span class="logo-lg">
+                        <img src="../../src/img/ALImoveis.png" alt="ALImoveis">
+                    </span>
                 </a>
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top">

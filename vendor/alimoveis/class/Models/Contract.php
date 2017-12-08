@@ -73,6 +73,28 @@ class Contract extends Model
         }
     }
 
+    public static function viewContract($code)
+    {
+        try {
+            $sql = new Dao();
+            $result = $sql->allSelect("SELECT * FROM tbcontract WHERE desCode = :DESCODE", array(
+                ':DESCODE' => $code
+            ));
+            if (is_array($result) && count($result) > 0) {
+                return $result[0];
+            }
+        } catch (\PDOException $e) {
+            $_SESSION['error'] = array(
+                'type' => "danger",
+                'ico' => "fa-ban",
+                'title' => "Erro",
+                'msg' => "Não foi possível gerar a visualização do Contrato nº " .$code. ".<br>" . $e->getMessage()
+            );
+            header('location: /contract');
+            exit;
+        }
+    }
+
     public static function generateCode()
     {
         try {

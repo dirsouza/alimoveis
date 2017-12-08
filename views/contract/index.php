@@ -40,7 +40,6 @@
                                 <!-- box-header -->
                                 <div class="box-header with-border">
                                     <a href="/contract/create" class="btn btn-flat bg-olive">Novo Contrato</a>
-                                    <a href="/contract/contract" class="btn btn-flat bg-aqua" target="_blank">Contrato</a>
                                 </div>
                                 <!-- box-body -->
                                 <div class="box-body">
@@ -54,7 +53,7 @@
                                             <th>Imóvel</th>
                                             <th width="10%" class="text-center">Dt. Inicial</th>
                                             <th width="10%" class="text-center">Dt. Final</th>
-                                            <th data-orderable="false" width="7%">&nbsp;</th>
+                                            <th data-orderable="false" width="10%">&nbsp;</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -67,6 +66,9 @@
                                             <td><?= $item['dtInitial'] ?></td>
                                             <td><?= $item['dtFinal'] ?></td>
                                             <td class="text-center">
+                                                <a href="/contract/contract/<?= $item['desCode'] ?>" class="btn bg-purple btn-xs btn-flat" target="_blank" data-toggle="tooltip" data-placement="top" title data-original-title="Contrato">
+                                                    <i class="glyphicon glyphicon-list-alt"></i>
+                                                </a>
                                                 <a href="/contract/update/<?= $item['idContract'] ?>" class="btn btn-primary btn-xs btn-flat" data-toggle="tooltip" data-placement="top" title data-original-title="Editar">
                                                     <i class="fa fa-edit"></i>
                                                 </a>

@@ -44,6 +44,42 @@ class Locator extends Model
         }
     }
 
+    public static function locatorDetails($id)
+    {
+        try {
+            $sql = new Dao();
+            $result = $sql->allSelect("SELECT	tblocator.desName,
+                                                tbnation.desNationality,
+                                                tbmaritalstatus.desMaritalStatus,
+                                                tblocator.desProfession,
+                                                tblocator.desAddress,
+                                                tblocator.desNumber,
+                                                tblocator.desDistrict,
+                                                tblocator.desCity,
+                                                tblocator.desState,
+                                                tblocator.desZipCode,
+                                                tblocator.desRG,
+                                                tblocator.desCPF
+                                        FROM tblocator INNER JOIN tbnation USING(idNation)
+                                        INNER JOIN tbmaritalstatus USING(idMaritalStatus)
+                                        WHERE tblocator.idLocator = :IDLOCATOR", array(
+                                            ':IDLOCATOR' => $id
+                                        ));
+            if (is_array($result) && count($result) > 0) {
+                return $result[0];
+            }
+        } catch (\PDOException $e) {
+            $_SESSION['error'] = array(
+                'type' => "danger",
+                'ico' => "fa-ban",
+                'title' => "Erro",
+                'msg' => "Não foi possível recuperar o registro detalhado.<br>" . $e->getMessage()
+            );
+            header('location: /contract');
+            exit;
+        }
+    }
+
     public function getData($id)
     {
         try {

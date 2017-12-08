@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="shortcut icon" type="image/png" href="../../src/img/favicon.png">
         <title>ALImóveis</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -11,7 +12,7 @@
     <body>
         <div class="header-top">
             <div class="row">
-                <div class="item-left">Contrato nº 2017120001</div>
+                <div class="item-left">Contrato nº <?=$contract['desCode']?></div>
                 <div class="item-right">© 2017 | ALImóveis - Versão 1.0.0</div>
             </div>
             <hr>
@@ -21,30 +22,34 @@
         </div>
         <div class="header-content">
             <p>
-                Pelo presente instrumento, de um lado <b>Francisca Brandão de Oliveira Neta</b>,
-                domiciliado(a) à Praça Santos Dumont, nº 56, bairro Centro, CEP nº 69020-550,
-                nesta cidade de Manaus-AM, portador(a) da Cédula de Identidade - RG nº 1837157-4,
-                inscrito(a) no Cadastro Nacional de Pessao Física - CPF sob o nº 939.652.142.68,
-                a seguir simplesmente denominado(a) <b>Locadora</b>, e, de outro lado <b>Lucas Brito de Araújo</b>,
-                domiciliado(a) nesta cidade de Manaus-AM, portador(a) da Cédula de Identidade - RG nº 172330-6,
-                inscrito(a) no Cadastro Nacional de Pessoa Física - CPF sob o nº 311.140.592-34,
-                a seguir simplesmente denominado(a) <b>Locatário</b>, resolvem de comum acordo celebrar
-                o presente contrato de locação, que se regerá pelas seguintes cláusulas.
+                Pelo presente instrumento, de um lado <b><?=$locator['desName']?></b>, <?=$locator['desNationality']?>,
+                <?=$locator['desMaritalStatus']?>, <?=$locator['desProfession']?>, domiciliado(a) à <?=$locator['desAddress']?>,
+                nº <?=$locator['desNumber']?>, bairro <?=$locator['desDistrict']?>, CEP nº <?=$locator['desZipCode']?>,
+                nesta cidade de <?=$locator['desCity']?>-<?=$locator['desState']?>, portador(a) da Cédula de Identidade - RG
+                nº <?=$locator['desRG']?>, inscrito(a) no Cadastro Nacional de Pessao Física - CPF sob o nº <?=$locator['desCPF']?>,
+                a seguir simplesmente denominado(a) <b>Locador</b>, e, de outro lado <b><?=$renter['desName']?></b>,
+                <?=$renter['desNationality']?>, <?=$renter['desMaritalStatus']?>, <?=$renter['desProfession']?>,
+                domiciliado(a) nesta cidade de <?=$locator['desCity']?>-<?=$locator['desState']?>, portador(a) da Cédula
+                de Identidade - RG nº <?=$renter['desRG']?>, inscrito(a) no Cadastro Nacional de Pessoa Física - CPF sob
+                o nº <?=$renter['desCPF']?>, a seguir simplesmente denominado(a) <b>Locatário</b>, resolvem de comum acordo
+                celebrar o presente contrato de locação, que se regerá pelas seguintes cláusulas.
             </p>
             <p>
                 <ol>
                 <li>
-                    A <b>Locadora</b> aluga ao <b>Locatário</b> o imóvel de sua propriedade localizado
-                    na Rua Projetada I, nº 54, bairro Coroado, nesta cidade de Manaus-AM.
+                    O <b>Locador</b> aluga ao <b>Locatário</b> o imóvel de sua propriedade localizado
+                    à <?=$immobile['desAddress']?>, nº <?=$immobile['desNumber']?>, bairro <?=$immobile['desDistrict']?>,
+                    CEP nº <?=$immobile['desZipCode']?>, nesta cidade de <?=$immobile['desCity']?>-<?=$immobile['desState']?>.
                 </li>
                 <li>
                     A locação é para fins exclusivamente residenciais.
                 </li>
                 <li>
-                    O prazo de locação é de 12 (doze) meses a contar desta data.
+                    O prazo de locação é de <?=$contract['desDeadline']?> (<?=trim($mesFull)?>) mês(es) a contar desta data.
                 </li>
                 <li>
-                    O aluguel mensal é de R$ 600,00 (seiscentos reais) durante o prazo de locação descrito na cláusula 3.
+                    O aluguel mensal é de R$ <?=number_format($contract['desValue'], 2, ",", ".")?> (<?=trim($valueFull)?>) durante o prazo de locação descrito
+                    na cláusula 3.
                     <div class="item-content">
                         <b>Parágrafo Único</b> - O reajuste será anual e com base na variação do IGPM/FGV divulgado pela
                         Fundação Getúlio Vargas ou, em caso da sua extinção, pela variação de outro índice que venha
@@ -52,11 +57,13 @@
                     </div>
                 </li>
                 <li>
-                    O aluguel será pago no dia 25 (vinte e cinco) do mês seguinte ao mês vencido.
+                    O aluguel será pago no dia <?=date('d', strtotime($contract['dtInitial']))?> (<?=trim($dateFull)?>)
+                    do mês seguinte ao mês vencido.
                     <div class="item-content">
-                        <b>Parágrafo 1º</b> - O pagamento do aluguel será feito através de depósito/transferência bancário,
-                        em conta bancária de preferência da <b>Locatária</b>, ou em sua residência, sita a Praça Santos
-                        Dumont, nº 56, bairro Centro, nesta cidade de Manaus-AM.
+                        <b>Parágrafo 1º</b> - O pagamento do aluguel será feito através de depósito/transferência,
+                        em conta bancária de preferência da <b>Locatário</b>, ou em sua residência, sito à <?=$locator['desAddress']?>,
+                        nº <?=$locator['desNumber']?>, bairro <?=$locator['desDistrict']?>, CEP nº <?=$locator['desZipCode']?>,
+                        nesta cidade de <?=$locator['desCity']?>-<?=$locator['desState']?>.
                     </div>
                     <div class="item-content">
                         <b>Parágrafo 2º</b> - O pagamento do primeiro aluguel será proporcional aos dias corridos do mês,
@@ -79,7 +86,7 @@
                     </div>
                     <div class="item-content">
                         <b>Parágrafo 2º</b> - Na hipótese de pagamento direto ao credor, o <b>Locatário</b> entregará
-                        mensalmente à <b>Locadora</b>, juntamente com o pagamento do aluguel, os comprovantes respectivos
+                        mensalmente à <b>Locador</b>, juntamente com o pagamento do aluguel, os comprovantes respectivos
                         devidamente quitados.
                     </div>
                     <div class="item-content">
@@ -90,11 +97,11 @@
                 </li>
                 <li>
                     Não pode o <b>Locatário</b> ceder ou sub-rogar a terceiros, sem o consentimento prévio, expresso e
-                    escrito da <b>Locadora</b>.
+                    escrito da <b>Locador</b>.
                 </li>
                 <li>
                     Não pode, também, o <b>Locatário</b> efetuar qualquer reforma ou reparo no imóvel locado, sem o
-                    consentimento prévio, expresso e escrito da <b>Locadora</b>.
+                    consentimento prévio, expresso e escrito da <b>Locador</b>.
                 </li>
                 <li>
                     O <b>Locatário</b> declara expressamente que vistoriou o imóvel locado e que recebe em bom estado de
@@ -103,15 +110,15 @@
                 </li>
                 <li>
                     Todas as benfeitorias necessárias que eventualmente o <b>Locatário</b> fizer no imóvel locado, assim
-                    como as benfeitorias úteis autorizadas pela <b>Locatária</b>, ficarão incorparadas ao imóvel, e serão
+                    como as benfeitorias úteis autorizadas pela <b>Locatário</b>, ficarão incorparadas ao imóvel, e serão
                     abatidas no aluguel mensal, de forma parcelada, no valor máximo de até R$ 100,00 (cem reais), ou
                     conforme acordado entre as partes, não dando direito ao <b>Locatário</b> o exercício de direito de
                     rentenção.
                     <div class="item-content">
-                        <b>Parágrafo Único</b> - O <b>Locatário</b> se obriga a comunicar imediatamente à <b>Locatária</b>
+                        <b>Parágrafo Único</b> - O <b>Locatário</b> se obriga a comunicar imediatamente à <b>Locatário</b>
                         o recebimento de qualquer aviso ao notificação dos poderes públicos que visem modificar o imóvel
                         ou que impliquem qualquer tipo de alteração no mesmo, ficando responsável por qualquer exigência
-                        a que tenha dado causa, antes da tomada de qualquer providência, avisar por escrito à <b>Locatária</b>
+                        a que tenha dado causa, antes da tomada de qualquer providência, avisar por escrito à <b>Locatário</b>
                     </div>
                 </li>
                 <li>
@@ -129,7 +136,7 @@
                         </ol>
                     </div>
                     <div class="item-content">
-                        <b>Parágrafo 1º</b> - Durante o prazo estipulado para a duração do contrato, não poderá a <b>Locadora</b>
+                        <b>Parágrafo 1º</b> - Durante o prazo estipulado para a duração do contrato, não poderá a <b>Locador</b>
                         reaver o imóvel locado. O <b>Locatário</b>, todavia, poderá devolvê-lo, pagando a multa de 10%
                         (dez por cento), proporcionalmente ao período de cumprimento do contrato, ou, na falta, a quê for
                         judicialmente estipulado.
@@ -137,7 +144,7 @@
                     <div class="item-content">
                         <b>Parágrafo 2º</b> - O <b>Locatário</b> ficará dispensado da multa se a devolução do imóvel decorrer
                         de transferência, pelo empregador, privado ou público, para prestar serviços em localidades diversas
-                        daquele do início do contrato, e se notificar, por escrito, a <b>Locadora</b> com prazo de, no
+                        daquele do início do contrato, e se notificar, por escrito, a <b>Locador</b> com prazo de, no
                         mínimo 30 (trinta) dias de antecedência.
                     </div>
                     <div class="item-content">
@@ -159,14 +166,14 @@
                 E assim, por estarem justos e contatados, assinam o presente em 02 (duas) vias de igual teor e forma.
             </p>
             <p class="locateDate">
-                Manaus-AM, 25 de Janeiro de 2017.
+                Manaus-AM, <?=strftime('%d de %B de %Y', strtotime($contract['dtInitial']))?>.
             </p>
             <table>
                 <tbody>
                 <tr>
-                    <td style="border-top: solid;"><b>Locatário</b></td>
-                    <td>&nbsp;</td>
-                    <td style="border-top: solid;"><b>Locadora</b></td>
+                    <td style="border-top: solid; width: 45%"><b><?=$locator['desName']?><br>Locador</b></td>
+                    <td style="width: 10%">&nbsp;</td>
+                    <td style="border-top: solid; width: 45%"><b><?=$renter['desName']?><br>Locatário</b></td>
                 </tr>
                 </tbody>
             </table>
@@ -176,9 +183,9 @@
             <table>
                 <tbody>
                 <tr>
-                    <td style="border-bottom: solid;">&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td style="border-bottom: solid;">&nbsp;</td>
+                    <td style="border-bottom: solid; width: 45%;">&nbsp;</td>
+                    <td style="width: 10%;">&nbsp;</td>
+                    <td style="border-bottom: solid; width: 45%;">&nbsp;</td>
                 </tr>
                 <tr>
                     <td style="text-align: left"><b style="text-transform: none">Nome:</b></td>
