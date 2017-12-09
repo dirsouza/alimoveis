@@ -4,7 +4,7 @@
                 <section class="sidebar">
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu" data-widget="tree">
-                        <li class="header">NAVEGAÇÃO</li>
+                        <li class="header"><i class="glyphicon glyphicon-menu-hamburger"> </i> MENU DE NAVEGAÇÃO</li>
                         <li<?php if($_SESSION['page'] === "dashboard") echo ' class="active"'; ?>>
                             <a href="/">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>

@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link rel="shortcut icon" type="image/png" href="../../src/img/favicon.png">
-        <title>ALImóveis</title>
+        <link rel="shortcut icon" type="image/png" href="../../src/img/ALUImoveis_favicon.png">
+        <title>Contrato_<?=$contract['desCode']?></title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="../../lib/personal/css/contract.css">
@@ -13,7 +13,7 @@
         <div class="header-top">
             <div class="row">
                 <div class="item-left">Contrato nº <?=$contract['desCode']?></div>
-                <div class="item-right">© 2017 | ALImóveis - Versão 1.0.0</div>
+                <div class="item-right">© 2017 | ALUImóveis - Versão 1.0.0</div>
             </div>
             <hr>
         </div>

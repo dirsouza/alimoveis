@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>ALImóveis | Login</title>
+        <link rel="shortcut icon" type="image/png" href="../../src/img/ALUImoveis_favicon.png">
+        <title>ALUImóveis</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->
         <link rel="stylesheet" href="../../lib/plugins/bootstrap/css/bootstrap.min.css">
@@ -11,6 +12,8 @@
         <link rel="stylesheet" href="../../lib/plugins/font-awesome/css/font-awesome.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="../../lib/template/css/AdminLTE.min.css">
+        <!-- Personal CSS -->
+        <link rel="stylesheet" href="../../lib/personal/css/personal.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,7 +37,9 @@
             </div>
             <?php endif; ?>
             <div class="login-logo">
-                <a href="/"><b>ALI</b>móveis</a>
+                <a href="/">
+                    <img src="../../src/img/ALUImoveis_header.png" alt="ALUImoveis">
+                </a>
             </div>
             <!-- /.login-logo -->
             <div class="login-box-body">

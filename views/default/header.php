@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link rel="shortcut icon" type="image/png" href="../../src/img/favicon.png">
-        <title>ALImóveis</title>
+        <link rel="shortcut icon" type="image/png" href="../../src/img/ALUImoveis_favicon.png">
+        <title>ALUImóveis</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->
@@ -28,7 +28,7 @@
         <link rel="stylesheet" href="../../lib/template/css/AdminLTE.min.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
-        <link rel="stylesheet" href="../../lib/template/css/skins/skin-blue.css">
+        <link rel="stylesheet" href="../../lib/template/css/skins/skin-blue.min.css">
         <!-- Personal CSS -->
         <link rel="stylesheet" href="../../lib/personal/css/personal.css">
 
@@ -50,11 +50,11 @@
                 <a href="/" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini">
-                        <img src="../../src/img/ALI.png" alt="ALI">
+                        <img src="../../src/img/ALUImoveis_favicon.png" alt="ALU">
                     </span>
                     <!-- logo for regular state and mobile devices -->
                     <span class="logo-lg">
-                        <img src="../../src/img/ALImoveis.png" alt="ALImoveis">
+                        <img src="../../src/img/ALUImoveis_header.png" alt="ALUImoveis">
                     </span>
                 </a>
                 <!-- Header Navbar: style can be found in header.less -->

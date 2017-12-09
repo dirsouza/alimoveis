@@ -1,5 +1,5 @@
             <footer class="main-footer">
-                <strong>&copy; 2017 | ALImóveis - Versão 1.0.0
+                <strong>&copy; 2017 | ALUImóveis - Versão 1.0.0
                 <div class="pull-right hidden-xs">
                     Desenvolvidor por <a href="https://www.linkedin.com/in/dirsouza/" target="_blank">Diogo Souza</a>
                 </div>
@@ -56,9 +56,11 @@
                     <?php break;
                 case "discount": ?>
                     <script src="../../lib/personal/js/discount.js"></script>
+                    <script src="../../lib/plugins/jquery-maskmoney/js/jquery.maskMoney.min.js"></script>
                     <?php break;
                 case "receipt": ?>
                     <script src="../../lib/personal/js/receipt.js"></script>
+                    <script src="../../lib/plugins/jquery-maskmoney/js/jquery.maskMoney.min.js"></script>
                     <?php break;
                 case "user": ?>
                     <script src="../../lib/personal/js/user.js"></script>

@@ -21,7 +21,7 @@ class Contract extends Model
                                             FROM tbcontract INNER JOIN tblocator ON tbcontract.idLocator = tblocator.idLocator
                                             INNER JOIN tbrenter ON tbcontract.idRenter = tbrenter.idRenter
                                             INNER JOIN tbimmobile ON tbcontract.idImmobile = tbimmobile.idImmobile
-                                            ORDER BY tbcontract.desCode DESC");
+                                            ORDER BY tbcontract.desCode ASC");
         } catch (\PDOException $e) {
             $_SESSION['error'] = array(
                 'type' => "danger",
@@ -143,7 +143,7 @@ class Contract extends Model
                         ':DESDEADLINE' => $this->getdesDeadline(),
                         ':DTINITIAL' => $this->getdtInitial(),
                         ':DTFINAL' => $this->getdtFinal(),
-                        ':DESVALUE' => trim(str_replace(",", ".", str_replace(".","",str_replace("R$ ","",$this->getdesValue()))))
+                        ':DESVALUE' => trim(str_replace(",", ".",preg_replace('/[R$.]/',"",$this->getdesValue())))
                     ));
                     if ($this->verifyInsertData()) {
                         $_SESSION['msg'] = 'insert-success';
@@ -190,7 +190,7 @@ class Contract extends Model
                     ':DESDEADLINE' => $this->getdesDeadline(),
                     ':DTINITIAL' => $this->getdtInitial(),
                     ':DTFINAL' => $this->getdtFinal(),
-                    ':DESVALUE' => trim(str_replace(",", ".", str_replace(".","",str_replace("R$ ","",$this->getdesValue()))))
+                    ':DESVALUE' => trim(str_replace(",", ".",preg_replace('/[R$.]/',"",$this->getdesValue())))
                 ));
                 if ($this->compareData($this->getidContract(), $dataBebore)) {
                     $_SESSION['msg'] = "update-success";
