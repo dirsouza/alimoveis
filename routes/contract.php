@@ -1,11 +1,11 @@
 <?php
 
-use ALImoveis\Models\Login;
-use ALImoveis\Models\Contract;
-use ALImoveis\Models\Locator;
-use ALImoveis\Models\Renter;
-use ALImoveis\Models\Immobile;
-use ALImoveis\Models\GExtenso;
+use ALUImoveis\Models\Login;
+use ALUImoveis\Models\Contract;
+use ALUImoveis\Models\Locator;
+use ALUImoveis\Models\Renter;
+use ALUImoveis\Models\Immobile;
+use ALUImoveis\Models\GExtenso;
 
 $app->get('/contract', function () use ($app) {
     Login::verifyLogin();

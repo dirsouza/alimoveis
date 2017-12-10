@@ -8,14 +8,14 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema dbALImoveis
+-- Schema dbALUImoveis
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema dbALImoveis
+-- Schema dbALUImoveis
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `dbALImoveis` DEFAULT CHARACTER SET utf8 ;
-USE `dbALImoveis` ;
+CREATE SCHEMA IF NOT EXISTS `dbALUImoveis` DEFAULT CHARACTER SET utf8 ;
+USE `dbALUImoveis` ;
 
 -- -----------------------------------------------------
 -- Table `tbUser`
@@ -270,7 +270,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- Data for table `tbUser`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `dbALImoveis`;
+USE `dbALUImoveis`;
 INSERT INTO `tbUser` (`idUser`, `desName`, `desUser`, `desEmail`, `desPassword`, `dtRegister`, `dtUpdate`) VALUES (DEFAULT, 'Administrador', 'admin', 'diogo.souza@msn.com', '$2y$12$srYtqZXZ78KFULqweqnCuO2s/Uzn42.F4UNylYtdcQAlr8VsBs15m', DEFAULT, DEFAULT);
 
 COMMIT;
@@ -280,7 +280,7 @@ COMMIT;
 -- Data for table `tbMaritalStatus`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `dbALImoveis`;
+USE `dbALUImoveis`;
 INSERT INTO `tbMaritalStatus` (`idMaritalStatus`, `desMaritalStatus`, `desDescription`, `dtRegister`, `dtUpdate`) VALUES (DEFAULT, 'Solteiro(a)', 'Que nunca se casou, ou que teve o casamento anulado.', DEFAULT, DEFAULT);
 INSERT INTO `tbMaritalStatus` (`idMaritalStatus`, `desMaritalStatus`, `desDescription`, `dtRegister`, `dtUpdate`) VALUES (DEFAULT, 'Casado(a)', 'Que contraiu matrimônio, independente do regime de bens adotado.', DEFAULT, DEFAULT);
 INSERT INTO `tbMaritalStatus` (`idMaritalStatus`, `desMaritalStatus`, `desDescription`, `dtRegister`, `dtUpdate`) VALUES (DEFAULT, 'Divorciado(a)', 'Após homologação do divórcio pela justiça ou por uma escritura pública.', DEFAULT, DEFAULT);
@@ -295,7 +295,7 @@ COMMIT;
 -- Data for table `tbNation`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `dbALImoveis`;
+USE `dbALUImoveis`;
 INSERT INTO `tbNation` (`idNation`, `desNation`, `desNationality`, `dtRegister`, `dtUpdate`) VALUES (DEFAULT, 'Alemanha', 'Alemão(ã)', DEFAULT, DEFAULT);
 INSERT INTO `tbNation` (`idNation`, `desNation`, `desNationality`, `dtRegister`, `dtUpdate`) VALUES (DEFAULT, 'Estados Unidos', 'Americano(a)', DEFAULT, DEFAULT);
 INSERT INTO `tbNation` (`idNation`, `desNation`, `desNationality`, `dtRegister`, `dtUpdate`) VALUES (DEFAULT, 'Angola', 'Angolano(a)', DEFAULT, DEFAULT);

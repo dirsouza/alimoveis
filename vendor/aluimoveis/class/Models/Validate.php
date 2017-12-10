@@ -1,6 +1,6 @@
 <?php
 
-namespace ALImoveis\Models;
+namespace ALUImoveis\Models;
 
 
 class Validate

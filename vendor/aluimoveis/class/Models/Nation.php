@@ -1,9 +1,9 @@
 <?php
 
-namespace ALImoveis\Models;
+namespace ALUImoveis\Models;
 
-use ALImoveis\Dao\Dao;
-use ALImoveis\Model;
+use ALUImoveis\Dao\Dao;
+use ALUImoveis\Model;
 
 class Nation extends Model
 {

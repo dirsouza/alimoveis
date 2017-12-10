@@ -1,10 +1,10 @@
 <?php
 
-namespace ALImoveis\Models;
+namespace ALUImoveis\Models;
 
-use ALImoveis\Dao\Dao;
-use ALImoveis\Model;
-use ALImoveis\Models\Validate;
+use ALUImoveis\Dao\Dao;
+use ALUImoveis\Model;
+use ALUImoveis\Models\Validate;
 
 class Renter extends Model
 {

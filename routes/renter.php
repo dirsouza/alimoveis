@@ -1,9 +1,9 @@
 <?php
 
-use ALImoveis\Models\Login;
-use ALImoveis\Models\Renter;
-use ALImoveis\Models\Nation;
-use ALImoveis\Models\MaritalStatus;
+use ALUImoveis\Models\Login;
+use ALUImoveis\Models\Renter;
+use ALUImoveis\Models\Nation;
+use ALUImoveis\Models\MaritalStatus;
 
 $app->get('/renter', function () use ($app) {
     Login::verifyLogin();

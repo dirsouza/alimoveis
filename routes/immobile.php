@@ -1,9 +1,9 @@
 <?php
 
-use ALImoveis\Models\Login;
-use ALImoveis\Models\Immobile;
-use ALImoveis\Models\Nation;
-use ALImoveis\Models\MaritalStatus;
+use ALUImoveis\Models\Login;
+use ALUImoveis\Models\Immobile;
+use ALUImoveis\Models\Nation;
+use ALUImoveis\Models\MaritalStatus;
 
 $app->get('/immobile', function () use ($app) {
     Login::verifyLogin();

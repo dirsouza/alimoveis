@@ -9,14 +9,14 @@ class ComposerStaticInit4f2d181baa70b78f62c702bd36555cf4
     public static $prefixLengthsPsr4 = array (
         'A' => 
         array (
-            'ALImoveis\\' => 10,
+            'ALUImoveis\\' => 11,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'ALImoveis\\' => 
+        'ALUImoveis\\' => 
         array (
-            0 => __DIR__ . '/..' . '/alimoveis/class',
+            0 => __DIR__ . '/..' . '/aluimoveis/class',
         ),
     );
 

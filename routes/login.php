@@ -1,6 +1,6 @@
 <?php
 
-use ALImoveis\Models\Login;
+use ALUImoveis\Models\Login;
 
 $app->get('/login', function () use ($app) {
     $app->render('login/login.php');

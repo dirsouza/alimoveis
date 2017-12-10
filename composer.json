@@ -1,5 +1,5 @@
 {
-    "name": "dirsouza/alimoveis",
+    "name": "dirsouza/aluimoveis",
     "authors": [
         {
             "name": "Diogo Souza",
@@ -12,7 +12,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ALImoveis\\": "vendor\\alimoveis\\class"
+            "ALUImoveis\\": "vendor\\aluimoveis\\class"
         }
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-use ALImoveis\Models\Login;
-use ALImoveis\Models\Locator;
-use ALImoveis\Models\Nation;
-use ALImoveis\Models\MaritalStatus;
+use ALUImoveis\Models\Login;
+use ALUImoveis\Models\Locator;
+use ALUImoveis\Models\Nation;
+use ALUImoveis\Models\MaritalStatus;
 
 $app->get('/locator', function () use ($app) {
     Login::verifyLogin();

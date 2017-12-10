@@ -1,8 +1,8 @@
 <?php
 
-use ALImoveis\Models\Login;
-use ALImoveis\Models\Discount;
-use ALImoveis\Models\Contract;
+use ALUImoveis\Models\Login;
+use ALUImoveis\Models\Discount;
+use ALUImoveis\Models\Contract;
 
 $app->get('/discount', function () use ($app) {
     Login::verifyLogin();
@@ -65,7 +65,7 @@ $app->post('/discount/create', function () {
     $discount->setData($_POST);
     $discount->insert();
 
-    header("location: /discount");
+    header("location: /portion/create");
     exit;
 });
 
@@ -76,10 +76,7 @@ $app->get('/discount/update/:idDiscount', function ($idDiscount) use ($app) {
     $user->getUser((int) $_SESSION[Login::SESSION]['idUser']);
 
     $discount = Discount::discountId((int) $idDiscount);
-
-    $nationality = Nation::listAll();
-
-    $maritalStatus = MaritalStatus::listAll();
+    $contract = Contract::listAll();
 
     $_SESSION['page'] = "discount";
 
@@ -87,8 +84,7 @@ $app->get('/discount/update/:idDiscount', function ($idDiscount) use ($app) {
     $app->render('default/panel.php');
     $app->render('discount/update.php', array(
         'discount' => $discount[0],
-        'nationality' => $nationality,
-        'maritalStatus' => $maritalStatus
+        'contract' => $contract
     ));
     $app->render('default/footer.php');
 });
@@ -113,4 +109,24 @@ $app->get('/discount/:idDiscount/delete', function ($idDiscount) {
 
     header("location: /discount");
     exit;
+});
+
+$app->get('/portion/create', function () use ($app) {
+    Login::verifyLogin();
+
+    $user = new Login();
+    $user->getUser((int) $_SESSION[Login::SESSION]['idUser']);
+
+    $discount = Discount::discountId($_SESSION[\ALUImoveis\Dao\Dao::SESSION]);
+    $contract = Contract::contractId($discount[0]['idContract']);
+
+    $_SESSION['page'] = "discount";
+
+    $app->render('default/header.php', $user->getValues());
+    $app->render('default/panel.php');
+    $app->render('portion/create.php', array(
+        'discount' => $discount[0],
+        'contract' => $contract[0]
+    ));
+    $app->render('default/footer.php');
 });

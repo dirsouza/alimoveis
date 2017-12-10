@@ -50,7 +50,7 @@
  *
  */
 
-namespace ALImoveis\Models;
+namespace ALUImoveis\Models;
 
  class GExtenso {
 

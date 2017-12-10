@@ -64,10 +64,10 @@
                                             <td class="text-right"><?= number_format($item['desValue'], 2, ",", ".") ?></td>
                                             <td class="text-center"><?= date('d/m/Y', strtotime($item['dtRegister'])) ?></td>
                                             <td class="text-center">
-                                                <a href="/locator/update/<?= $item['idDiscount'] ?>" class="btn btn-primary btn-xs btn-flat" data-toggle="tooltip" data-placement="top" title data-original-title="Editar">
+                                                <a href="/discount/update/<?= $item['idDiscount'] ?>" class="btn btn-primary btn-xs btn-flat" data-toggle="tooltip" data-placement="top" title data-original-title="Editar">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <a href="/locator/<?= $item['idDiscount'] ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" data-placement="top" title data-original-title="Excluir">
+                                                <a href="/discount/<?= $item['idDiscount'] ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" data-placement="top" title data-original-title="Excluir">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>

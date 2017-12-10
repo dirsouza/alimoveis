@@ -1,6 +1,6 @@
 <?php
 
-namespace ALImoveis\Dao;
+namespace ALUImoveis\Dao;
 
 
 class Dao
@@ -8,7 +8,8 @@ class Dao
     const HOSTNAME  = "localhost";
     const USERNAME  = "root";
     const PASSWORD  = "root";
-    const DBNAME    = "dbalimoveis";
+    const DBNAME    = "dbALUImoveis";
+    const SESSION = "lastID";
 
     private $conn;
 
@@ -17,6 +18,7 @@ class Dao
     {
         $this->conn = new \PDO("mysql:dbname=" . Dao::DBNAME . ";host=" . Dao::HOSTNAME, Dao::USERNAME, Dao::PASSWORD);
         $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);
     }
 
     // Seta os Parâmentros do array e envia para bindParam
@@ -41,6 +43,7 @@ class Dao
             $stmt = $this->conn->prepare($rawQuery);
             $this->setParams($stmt, $params);
             $stmt->execute();
+            $_SESSION[Dao::SESSION] = $this->conn->lastInsertId();
             $this->conn->commit();
         } catch (\PDOException $e) {
             $this->conn->rollBack();

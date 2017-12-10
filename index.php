@@ -7,7 +7,7 @@ require_once "vendor/autoload.php";
 session_start();
 
 use Slim\Slim;
-use ALImoveis\Models\Login;
+use ALUImoveis\Models\Login;
 
 $app = new Slim();
 $app->config(array(
