@@ -129,6 +129,8 @@ class Discount extends Model
         if ($this->verifyData()) {
             $dataBebore = $this->setDataRecover($this->getidDiscount());
             try {
+                $portion = new Portion();
+                $portion->delete($this->getidDiscount());
                 $sql = new Dao();
                 $sql->allQuery("UPDATE tbdiscount SET desDescription = :DESDESCRIPTION, idContract = :IDCONTRACT, desValue = :DESVALUE, desPortion = :DESPORTION WHERE idDiscount = :IDDISCOUNT", array(
                     ':IDDISCOUNT' => $this->getidDiscount(),
@@ -167,6 +169,8 @@ class Discount extends Model
     public function delete()
     {
         try {
+            $portion = new Portion();
+            $portion->delete($this->getidDiscount());
             $sql = new Dao();
             $sql->allQuery("DELETE FROM tbdiscount WHERE idDiscount = :IDDISCOUNT", array(
                 ':IDDISCOUNT' => $this->getidDiscount()

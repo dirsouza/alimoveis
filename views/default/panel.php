@@ -33,6 +33,9 @@
                         <li<?php if($_SESSION['page'] === "discount") echo ' class="active"'; ?>>
                             <a href="/discount">
                                 <i class="fa fa-minus-square"></i> <span>Desconto</span>
+                                <span class="pull-right-container">
+                                    <span class="label label-warning pull-right">42</span>
+                                </span>
                             </a>
                         </li>
                         <li<?php if($_SESSION['page'] === "receipt") echo ' class="active"'; ?>>

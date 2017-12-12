@@ -9,7 +9,7 @@
                     <ol class="breadcrumb">
                         <li><a href="/" class="disabled"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="/discount" class="disabled"><i class="fa fa-minus-square"></i> Desconto</a></li>
-                        <li class="active"><i class="fa fa-plus"></i> Parcelas</li>
+                        <li class="active"><i class="glyphicon glyphicon-tasks"></i> Parcelas</li>
                     </ol>
                 </section>
 
@@ -40,7 +40,7 @@
                                 <!-- box-body -->
                                 <div class="box-body">
                                     <!-- form start -->
-                                    <form id="frmPortion" action="/portion/create" method="post">
+                                    <form id="frmPortion" action="/discount/create/portion" method="post">
                                         <input type="hidden" name="idDiscount" value="<?=$discount['idDiscount']?>">
                                         <!-- box body -->
                                         <div class="box-body">
@@ -77,7 +77,22 @@
                                                         <tbody>
                                                         <?php
                                                         $n = 0;
-                                                        $date = date('Y-m-d');
+                                                        $day = date('d', strtotime($contract['dtInitial']));
+                                                        $month = date('m', strtotime($discount['dtRegister']));
+                                                        $year = date('Y', strtotime($discount['dtRegister']));
+                                                        $date = date('Y-m-d', strtotime('+1 month', strtotime($year."-".$month."-".$day)));
+                                                        $portion = $discount['desPortion'];
+                                                        $value = $discount['desValue'];
+                                                        $valueSet = 0;
+                                                        if ($portion > 1) {
+                                                            if ($value > 100) {
+                                                                $valuePortion = 100;
+                                                            } else {
+                                                                $valuePortion = $value/$portion;
+                                                            }
+                                                        } else {
+                                                            $valuePortion = $value;
+                                                        }
                                                         ?>
                                                         <?php for ($i = 0; $i < (int)$discount['desPortion'] ; $i++): ?>
                                                             <tr>
@@ -93,11 +108,23 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-group">
-                                                                        <input type="text" name="desValue[]" class="form-control desValue" value="<?="R$ " . number_format($discount['desValue']/$discount['desPortion'], 2, ",", ".")?>" placeholder="R$ 0,00" onclick="this.select()">
+                                                                        <input type="text" name="desValue[]" class="form-control desValue" value="<?="R$ " . number_format($valuePortion, 2, ",", ".")?>" placeholder="R$ 0,00">
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                        <?php $date = date('Y-m-d', strtotime('+1 month', strtotime($date))) ?>
+                                                        <?php
+                                                            $date = date('Y-m-d', strtotime('+1 month', strtotime($date)));
+                                                            $valueSet += $valuePortion;
+                                                            if ($i < ($portion - 2) && ($value - $valueSet) > 100) {
+                                                                $valuePortion = 100;
+                                                            } else {
+                                                                if ($i === ($portion - 1) && ($value - $valueSet) > 100) {
+                                                                    $valuePortion = $value - $valueSet;
+                                                                } else {
+                                                                    $valuePortion = $value - $valueSet;
+                                                                }
+                                                            }
+                                                        ?>
                                                         <?php endfor; ?>
                                                         </tbody>
                                                     </table>
@@ -107,6 +134,7 @@
                                         <!-- box footer -->
                                         <div class="box-footer modal-footer">
                                             <button type="submit" class="btn btn-flat btn-primary">Cadastrar</button>
+                                            <button type="button" class="btn btn-flat bg-orange" onclick="javascript: location.href='/discount/update/<?=$discount['idDiscount']?>'">Cancelar</button>
                                         </div>
                                     </form>
                                 </div>

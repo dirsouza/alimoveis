@@ -3,6 +3,7 @@
 use ALUImoveis\Models\Login;
 use ALUImoveis\Models\Discount;
 use ALUImoveis\Models\Contract;
+use ALUImoveis\Models\Portion;
 
 $app->get('/discount', function () use ($app) {
     Login::verifyLogin();
@@ -65,7 +66,7 @@ $app->post('/discount/create', function () {
     $discount->setData($_POST);
     $discount->insert();
 
-    header("location: /portion/create");
+    header("location: /discount/create/portion");
     exit;
 });
 
@@ -77,6 +78,16 @@ $app->get('/discount/update/:idDiscount', function ($idDiscount) use ($app) {
 
     $discount = Discount::discountId((int) $idDiscount);
     $contract = Contract::listAll();
+
+    $portion = Portion::portionId((int)$idDiscount);
+    if (empty($portion)) {
+        $_SESSION['error'] = array(
+            'type' => "warning",
+            'ico' => "fa-warning",
+            'title' => "Aviso",
+            'msg' => "Para gerar o desconto, é necessário criar a parcela.<br><b>Clique em&nbsp;<span class='label label-primary'>Atualizar</span>&nbsp;para gerar Parcelas</b>."
+        );
+    }
 
     $_SESSION['page'] = "discount";
 
@@ -97,7 +108,8 @@ $app->post('/discount/update/:idDiscount', function ($idDiscount) {
     $discount->setData($_POST);
     $discount->update();
 
-    header("location: /discount");
+    $_SESSION[ALUImoveis\Dao\Dao::SESSION] = (int)$idDiscount;
+    header("location: /discount/create/portion");
     exit;
 });
 
@@ -111,7 +123,7 @@ $app->get('/discount/:idDiscount/delete', function ($idDiscount) {
     exit;
 });
 
-$app->get('/portion/create', function () use ($app) {
+$app->get('/discount/create/portion', function () use ($app) {
     Login::verifyLogin();
 
     $user = new Login();
@@ -129,4 +141,24 @@ $app->get('/portion/create', function () use ($app) {
         'contract' => $contract[0]
     ));
     $app->render('default/footer.php');
+});
+
+$app->post('/discount/create/portion', function () {
+    Login::verifyLogin();
+    $idDiscount = $_POST['idDiscount'];
+    unset($_POST['idDiscount']);
+    $data = $_POST;
+    for ($i = 0; $i < count($data['desValue']); $i++) {
+        $insert = array(
+            'idDiscount' => $idDiscount,
+            'desPortion' => (int)$data['desPortion'][$i],
+            'dtMaturity' => $data['dtMaturity'][$i],
+            'desValue' => $data['desValue'][$i]
+        );
+        $portion = new Portion();
+        $portion->setData($insert);
+        $portion->insert();
+    }
+    header("location: /discount");
+    exit;
 });
