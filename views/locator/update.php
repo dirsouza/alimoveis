@@ -82,19 +82,19 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desRG">RG:</label>
-                                                        <input type="text" name="desRG" class="form-control" maxlength="20" id="desRG" value="<?= $locator['desRG'] ?>" placeholder="RG">
+                                                        <input type="tel" name="desRG" class="form-control" maxlength="20" id="desRG" value="<?= $locator['desRG'] ?>" placeholder="RG">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desCPF">CPF:</label>
-                                                        <input type="text" name="desCPF" class="form-control" id="desCPF" value="<?= $locator['desCPF'] ?>" placeholder="CPF" readonly>
+                                                        <input type="tel" name="desCPF" class="form-control" id="desCPF" value="<?= $locator['desCPF'] ?>" placeholder="CPF" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desZipCode">CEP:</label>
-                                                        <input type="text" name="desZipCode" class="form-control" id="desZipCode" value="<?= $locator['desZipCode'] ?>" placeholder="CEP">
+                                                        <input type="tel" name="desZipCode" class="form-control" id="desZipCode" value="<?= $locator['desZipCode'] ?>" placeholder="CEP">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">

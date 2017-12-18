@@ -84,20 +84,20 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desRG">RG:</label>
-                                                        <input type="text" name="desRG" class="form-control" maxlength="20" id="desRG" placeholder="RG"
+                                                        <input type="tel" name="desRG" class="form-control" maxlength="20" id="desRG" placeholder="RG"
                                                         <?php if (!empty($data)): ?> value="<?= $data['desRG'] ?>" <?php endif; ?>>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desCPF">CPF:</label>
-                                                        <input type="text" name="desCPF" class="form-control" id="desCPF" placeholder="CPF"
+                                                        <input type="tel" name="desCPF" class="form-control" id="desCPF" placeholder="CPF"
                                                         <?php if (!empty($data)): ?> value="<?= $data['desCPF'] ?>" <?php endif; ?>>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <label for="desZipCode">CEP:</label>
-                                                    <input type="text" name="desZipCode" id="desZipCode" class="form-control" placeholder="CEP"
+                                                    <input type="tel" name="desZipCode" id="desZipCode" class="form-control" placeholder="CEP"
                                                         <?php if (!empty($data)): ?> value="<?= $data['desZipCode'] ?>" <?php endif; ?>>
                                                 </div>
                                                 <div class="col-md-6">

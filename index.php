@@ -36,5 +36,6 @@ require_once "routes/renter.php";
 require_once "routes/immobile.php";
 require_once "routes/contract.php";
 require_once "routes/discount.php";
+require_once "routes/receipt.php";
 
 $app->run();

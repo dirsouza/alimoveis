@@ -53,7 +53,7 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desZipCode">CEP:</label>
-                                                        <input type="text" name="desZipCode" class="form-control" id="desZipCode" value="<?= $immobile['desZipCode'] ?>" placeholder="CEP">
+                                                        <input type="tel" name="desZipCode" class="form-control" id="desZipCode" value="<?= $immobile['desZipCode'] ?>" placeholder="CEP">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">

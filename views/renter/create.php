@@ -84,14 +84,14 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="desRG">RG:</label>
-                                                        <input type="text" name="desRG" class="form-control" maxlength="20" id="desRG" placeholder="RG"
+                                                        <input type="tel" name="desRG" class="form-control" maxlength="20" id="desRG" placeholder="RG"
                                                         <?php if (!empty($data)): ?> value="<?= $data['desRG'] ?>" <?php endif; ?>>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="desCPF">CPF:</label>
-                                                        <input type="text" name="desCPF" class="form-control" id="desCPF" placeholder="CPF"
+                                                        <input type="tel" name="desCPF" class="form-control" id="desCPF" placeholder="CPF"
                                                         <?php if (!empty($data)): ?> value="<?= $data['desCPF'] ?>" <?php endif; ?>>
                                                     </div>
                                                 </div>

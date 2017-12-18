@@ -82,13 +82,13 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="desRG">RG:</label>
-                                                        <input type="text" name="desRG" class="form-control" maxlength="20" id="desRG" value="<?= $renter['desRG'] ?>" placeholder="RG">
+                                                        <input type="tel" name="desRG" class="form-control" maxlength="20" id="desRG" value="<?= $renter['desRG'] ?>" placeholder="RG">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="desCPF">CPF:</label>
-                                                        <input type="text" name="desCPF" class="form-control" id="desCPF" value="<?= $renter['desCPF'] ?>" placeholder="CPF" readonly>
+                                                        <input type="tel" name="desCPF" class="form-control" id="desCPF" value="<?= $renter['desCPF'] ?>" placeholder="CPF" readonly>
                                                     </div>
                                                 </div>
                                             </div>

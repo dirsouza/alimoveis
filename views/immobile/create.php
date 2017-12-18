@@ -54,7 +54,7 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desZipCode">CEP:</label>
-                                                        <input type="text" name="desZipCode" class="form-control" id="desZipCode" placeholder="CEP"
+                                                        <input type="tel" name="desZipCode" class="form-control" id="desZipCode" placeholder="CEP"
                                                             <?php if (!empty($data)): ?> value="<?= $data['desZipCode'] ?>" <?php endif; ?>>
                                                     </div>
                                                 </div>

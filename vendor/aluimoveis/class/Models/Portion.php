@@ -11,7 +11,7 @@ class Portion extends Model
     {
         try {
             $sql = new Dao();
-            return $sql->allSelect("SELECT * FROM tbportions WHERE idDiscount = :IDDISCOUNT", array(
+            return $sql->allSelect("SELECT * FROM tbportions WHERE idDiscount = :IDDISCOUNT AND desPayment = 'N'", array(
                 ':IDDISCOUNT' => $id
             ));
         } catch (\PDOException $e) {
@@ -31,12 +31,13 @@ class Portion extends Model
         if ($this->verifyData()) {
             try {
                 $sql = new Dao();
-                $sql->allQuery("INSERT INTO tbportions(idDiscount, desPortion, dtMaturity, desValue)
-                    VALUES(:IDDISCOUNT, :DESPORTION, :DTMATURITY, :DESVALUE)", array(
+                $sql->allQuery("INSERT INTO tbportions(idDiscount, desPortion, dtMaturity, desValue, desPayment)
+                    VALUES(:IDDISCOUNT, :DESPORTION, :DTMATURITY, :DESVALUE, :DESPAYMENT)", array(
                     ':IDDISCOUNT' => $this->getidDiscount(),
                     ':DESPORTION' => $this->getdesPortion(),
                     ':DTMATURITY' => $this->getdtMaturity(),
-                    ':DESVALUE' => trim(str_replace(",", ".",preg_replace('/[R$.]/',"",$this->getdesValue())))
+                    ':DESVALUE' => trim(str_replace(",", ".",preg_replace('/[R$.]/',"",$this->getdesValue()))),
+                    ':DESPAYMENT' => 'N'
                 ));
             } catch (\PDOException $e) {
                 $_SESSION['error'] = array(
@@ -45,10 +46,29 @@ class Portion extends Model
                     'title' => "Erro",
                     'msg' => "Não foi possível inserir o registro.<br>" . $e->getMessage()
                 );
-                $this->restoreData();
                 header("location: /discount/create");
                 exit;
             }
+        }
+    }
+
+    public function update($id)
+    {
+        try {
+            $sql = new Dao();
+            $sql->allQuery("UPDATE tbportions SET idPortions = :IDPORTIONS, desPayment = :DESPAYMENT", array(
+                ':IDPORTIONS' => $id,
+                ':DESPAYMENT' => 'Y'
+            ));
+        } catch (\PDOException $e) {
+            $_SESSION['error'] = array(
+                'type' => "danger",
+                'ico' => "fa-ban",
+                'title' => "Erro",
+                'msg' => "Não foi possível dar baixa no valor a ser descontado.<br>" . $e->getMessage()
+            );
+            header("location: /receipt");
+            exit;
         }
     }
 
