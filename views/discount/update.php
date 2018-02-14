@@ -52,10 +52,10 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label for="idContract">Contrato:</label>
+                                                        <label for="idContract">Contrato/Locatário:</label>
                                                         <select name="idContract" id="idContract" class="form-control select">
                                                             <?php foreach ($contract as $item): ?>
-                                                            <option value="<?= $item['idContract'] ?>" <?php if ($discount['idContract'] === $item['idContract']): ?>selected<?php endif; ?>><?= $item['desCode']."/".$item['desImmobile'] ?></option>
+                                                            <option value="<?= $item['idContract'] ?>" <?php if ($discount['idContract'] === $item['idContract']): ?>selected<?php endif; ?>><?= $item['desCode']."/".$item['desRenter'] ?></option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>
@@ -63,7 +63,7 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desValue">Valor:</label>
-                                                        <input type="text" name="desValue" class="form-control" id="desValue" placeholder="R$ 0,00" value="<?="R$ " . number_format($discount['desValue'], 2, ",", ".")?>">
+                                                        <input type="text" name="desValue" class="form-control money" id="desValue" placeholder="R$ 0,00" value="<?="R$ " . number_format($discount['desValue'], 2, ",", ".")?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-1">

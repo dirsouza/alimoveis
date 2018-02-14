@@ -47,7 +47,7 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desCode">Código:</label>
-                                                        <input type="text" name="desCode" class="form-control text-center" style="font-size: 28px" id="desCode" value="<?= $contract['desCode'] ?>" maxlength="10" placeholder="Código" readonly>
+                                                        <input type="text" name="desCode" class="form-control text-center codeContract" id="desCode" value="<?= $contract['desCode'] ?>" maxlength="10" placeholder="Código" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
@@ -103,7 +103,7 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desValue">Valor:</label>
-                                                        <input type="text" name="desValue" class="form-control" id="desValue" value="<?= "R$ " . number_format($contract['desValue'],2,",",".") ?>" placeholder="R$ 0,00">
+                                                        <input type="text" name="desValue" class="form-control money" id="desValue" value="<?= "R$ " . number_format($contract['desValue'],2,",",".") ?>" placeholder="R$ 0,00">
                                                     </div>
                                                 </div>
                                             </div>

@@ -11,14 +11,19 @@ class Receipt extends Model
     {
         try {
             $sql = new Dao();
-            return $sql->allSelect("SELECT	tbreceipt.desCode as 'receiptCode',
-                                                    tbreceipt.desPaymentInterest,
+            return $sql->allSelect("SELECT	tbreceipt.idReceipt,
+                                                    tbreceipt.desCode AS 'receiptCode',
+                                                    tbrenter.desName AS 'renterName',
+                                                    tbreceipt.desInterest,
                                                     tbreceipt.desMonth,
-                                                    date_format(tbreceipt.dtSignature, '%d/%m/%Y') as 'dtSignature',
                                                     tbreceipt.desPayment,
-                                                    date_format(tbreceipt.dtRegister, '%d/%m/%Y') as 'dtRegister',
-                                                    tbcontract.desCode as 'contractCode'
-                                            FROM tbreceipt INNER JOIN tbcontract ON tbreceipt.idReceipt = tbcontract.idContract
+                                                    date_format(tbreceipt.dtRegister, '%d/%m/%Y') AS 'dtRegister',
+                                                    tbcontract.desCode AS 'contractCode',
+                                                    tbimmobile.desDescription AS 'immobileDescription'
+                                            FROM tbreceipt
+                                            INNER JOIN tbcontract USING(idContract)
+                                            INNER JOIN tbrenter ON tbrenter.idRenter = tbcontract.idRenter
+                                            INNER JOIN tbimmobile ON tbcontract.idImmobile = tbimmobile.idImmobile 
                                             ORDER BY tbreceipt.desCode ASC");
         } catch (\PDOException $e) {
             $_SESSION['error'] = array(
@@ -108,11 +113,83 @@ class Receipt extends Model
                 'type' => "danger",
                 'ico' => "fa-ban",
                 'title' => "Erro",
-                'msg' => "Não foi possível gerar o Código do Contrato.<br>" . $e->getMessage()
+                'msg' => "Não foi possível gerar o Código do Recibo.<br>" . $e->getMessage()
             );
-            header("location: /contract/create");
+            header("location: /receipt/create");
             exit;
         }
+    }
+
+    public static function searchLastPayment($idContract)
+    {
+        try {
+            $sql = new Dao();
+            $result = $sql->allSelect(
+                "SELECT desMonth FROM tbreceipt WHERE idContract = :IDCONTRACT AND dtRegister BETWEEN (
+                            select dtInitial from tbcontract where idContract = :IDCONTRACT) and (NOW())", array(
+                ':IDCONTRACT' => $idContract
+            ));
+
+            if (is_array($result) && count($result) > 0) {
+                return $result;
+            }
+        } catch (\PDOException $e) {
+            $_SESSION['error'] = array(
+                'type' => "danger",
+                'ico' => "fa-ban",
+                'title' => "Erro",
+                'msg' => "Não foi possível verificar o último pagamento.<br>" . $e->getMessage()
+            );
+            header("location: /receipt/create");
+            exit;
+        }
+
+        //$sql->closeConnection();
+    }
+
+    public static function searchPortions($idContrac)
+    {
+        try {
+            $sql = new Dao();
+            $result = $sql->allSelect("SELECT idDiscount FROM tbdiscount WHERE idContract = :IDCONTRACT", array(
+                ':IDCONTRACT' => $idContrac
+            ));
+
+            $results = array();
+
+            if (is_array($result) && count($result) > 0) {
+                foreach ($result as $key => $index) {
+                    foreach ($index as $idValue) {
+                        $discounts = $sql->allSelect("SELECT tbdiscount.desDescription AS 'discountDescription',
+                                                                    tbportions.idPortions AS 'portionsId',
+                                                                    tbportions.dtMaturity AS 'portionsMaturity',
+                                                                    tbportions.desValue AS 'portionsValue'
+                                                             FROM tbportions INNER JOIN tbdiscount USING(idDiscount)
+                                                             WHERE tbportions.idDiscount = $idValue AND tbportions.desPayment = 'N'
+                                                             ORDER BY tbportions.idPortions ASC");
+
+                        if (is_array($discounts) && count($discounts) > 0) {
+                            array_push($results, $discounts);
+                        }
+                    }
+                }
+            }
+
+            if (is_array($results) && count($results) > 0) {
+                return $results;
+            }
+        } catch (\PDOException $e) {
+            $_SESSION['error'] = array(
+                'type' => "danger",
+                'ico' => "fa-ban",
+                'title' => "Erro",
+                'msg' => "Não foi possível verificar se existem Descontos.<br>" . $e->getMessage()
+            );
+            header("location: /receipt/create");
+            exit;
+        }
+
+        //$sql->closeConnection();
     }
 
     public function insert()
@@ -123,24 +200,25 @@ class Receipt extends Model
                     'type' => "warning",
                     'ico' => "fa-warning",
                     'title' => "Aviso",
-                    'msg' => "O Imóvel informado já encontra-se locado."
+                    'msg' => "Já existe um Recibo gerado para esse período."
                 );
                 $this->restoreData();
-                header("location: /contract/create");
+                header("location: /receipt/create");
                 exit;
             } else {
                 try {
                     $sql = new Dao();
-                    $sql->allQuery("INSERT INTO tbcontract(desCode, idLocator, idRenter, idImmobile, desDeadline, dtInitial, dtFinal, desValue)
-                        VALUES(:DESCODE, :IDLOCATOR, :IDRENTER, :IDIMMOBILE, :DESDEADLINE, :DTINITIAL, :DTFINAL, :DESVALUE)", array(
+                    $sql->allQuery("INSERT INTO tbreceipt(desCode, idContract, desFined, desInterest, desPortions, desMonth, desValue, desNote, desPayment)
+                        VALUES(:DESCODE, :IDCONTRAC, :DESFINED, :DESINTEREST, :DESPORTIONS, :DESMONTH, :DESVALUE, :DESNOTE, :DESPAYMENT)", array(
                         ':DESCODE' => $this->getdesCode(),
-                        ':IDLOCATOR' => $this->getidLocator(),
-                        ':IDRENTER' => $this->getidRenter(),
-                        ':IDIMMOBILE' => $this->getidImmobile(),
-                        ':DESDEADLINE' => $this->getdesDeadline(),
-                        ':DTINITIAL' => $this->getdtInitial(),
-                        ':DTFINAL' => $this->getdtFinal(),
-                        ':DESVALUE' => trim(str_replace(",", ".",preg_replace('/[R$.]/',"",$this->getdesValue())))
+                        ':IDCONTRAC' => $this->getidContract(),
+                        ':DESFINED' => trim(str_replace(",", ".",preg_replace('/[R$.]/',"",$this->getdesFined()))),
+                        ':DESINTEREST' => trim(str_replace(",", ".",preg_replace('/[R$.]/',"",$this->getdesInterest()))),
+                        ':DESPORTIONS' => $this->getdesPortions(),
+                        ':DESMONTH' => $this->getdesMonth(),
+                        ':DESVALUE' => trim(str_replace(",", ".",preg_replace('/[R$.]/',"",$this->getdesValue()))),
+                        ':DESNOTE' => $this->getdesNote(),
+                        ':DESPAYMENT' => "Y"
                     ));
                     if ($this->verifyInsertData()) {
                         $_SESSION['msg'] = 'insert-success';
@@ -155,7 +233,7 @@ class Receipt extends Model
                         'msg' => "Não foi possível inserir o registro.<br>" . $e->getMessage()
                     );
                     $this->restoreData();
-                    header("location: /contract/create");
+                    header("location: /receipt/create");
                     exit;
                 }
             }
@@ -167,7 +245,7 @@ class Receipt extends Model
                 'msg' => "Estão faltando dados necessários para o registro."
             );
             $this->restoreData();
-            header("location: /contract/create");
+            header("location: /receipt/create");
             exit;
         }
     }
@@ -211,7 +289,7 @@ class Receipt extends Model
                 'title' => "Informação",
                 'msg' => "Estão faltando dados necessários para a atualização do registro."
             );
-            header("location: /contract/update/" . $this->getidContract());
+            header("location: /receipt/update/" . $this->getidContract());
             exit;
         }
     }
@@ -247,27 +325,19 @@ class Receipt extends Model
             return false;
         }
 
-        if (empty(trim($this->getidLocator()))) {
+        if (empty(trim($this->getidContract()))) {
             return false;
         }
 
-        if (empty(trim($this->getidRenter()))) {
+        if (empty(trim($this->getdesFined()))) {
             return false;
         }
 
-        if (empty(trim($this->getidImmobile()))) {
+        if (empty(trim($this->getdesInterest()))) {
             return false;
         }
 
-        if (empty(trim($this->getdesDeadline()))) {
-            return false;
-        }
-
-        if (empty(trim($this->getdtInitial()))) {
-            return false;
-        }
-
-        if (empty(trim($this->getdtFinal()))) {
+        if (empty(trim($this->getdesMonth()))) {
             return false;
         }
 
@@ -281,11 +351,12 @@ class Receipt extends Model
     {
         try {
             $sql = new Dao();
-            $result = $sql->allSelect("SELECT * FROM tbcontract WHERE idImmobile = :IDIMMOBILE", array(
-                ':IDIMMOBILE' => $this->getidImmobile()
+            $result = $sql->allSelect("SELECT * FROM tbreceipt WHERE idContract = :IDCONTRAC AND desMonth = :DESMONTH", array(
+                ':IDCONTRAC' => $this->getidContract(),
+                ':DESMONTH' => $this->getdesMonth()
             ));
 
-            if (is_array($result) && count($result) > 0 && date("Y-m-d") < $this->getdtFinal()) {
+            if (is_array($result) && count($result) > 0) {
                 return true;
             }
         } catch (\PDOException $e) {
@@ -293,10 +364,10 @@ class Receipt extends Model
                 'type' => "danger",
                 'ico' => "fa-ban",
                 'title' => "Erro",
-                'msg' => "Não foi possível verificar se o Contrato já consta no Banco de Dados.<br>" . $e->getMessage()
+                'msg' => "Não foi possível verificar se existe Recibo para o período informado no Banco de Dados.<br>" . $e->getMessage()
             );
             $this->restoreData();
-            header("location: /contract/create");
+            header("location: /receipt/create");
             exit;
         }
         return false;
@@ -306,7 +377,7 @@ class Receipt extends Model
     {
         try {
             $sql = new Dao();
-            $result = $sql->allSelect("SELECT * FROM tbcontract WHERE desCode = :DESCODE", array(
+            $result = $sql->allSelect("SELECT * FROM tbreceipt WHERE desCode = :DESCODE", array(
                 ':DESCODE' => $this->getdesCode()
             ));
 
@@ -354,13 +425,13 @@ class Receipt extends Model
     {
         $_SESSION['data'] = array(
             'desCode' => $this->getdesCode(),
-            'idLocator' => $this->getidLocator(),
-            'idRenter' => $this->getidRenter(),
-            'idImmobile' => $this->getidImmobile(),
-            'desDeadline' => $this->getdesDeadline(),
-            'dtInitial' => $this->getdtInitial(),
-            'dtFinal' => $this->getdtFinal(),
-            'desValue' => $this->getdesValue()
+            'idContract' => $this->getidContract(),
+            'desFined' => $this->getdesFined(),
+            'desInterest' => $this->getdesInterest(),
+            'desPortions' => $this->getdesPortions(),
+            'desMonth' => $this->getdesMonth(),
+            'desValue' => $this->getdesValue(),
+            'desNote' => $this->getdesNote()
         );
     }
 

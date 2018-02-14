@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="../../lib/plugins/Ionicons/css/ionicons.min.css">
         <!-- Date Picker -->
         <link rel="stylesheet" href="../../lib/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
+        <!-- Date Picker Ranger -->
+        <link rel="stylesheet" href="../../lib/plugins/daterangerpicker/css/daterangepicker.css">
         <!-- bootstrap wysihtml5 - text editor -->
         <link rel="stylesheet" href="../../lib/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
         <!-- DataTables -->

@@ -49,7 +49,8 @@
                                         <tr>
                                             <th width="3%" class="text-center">#</th>
                                             <th>Descrição</th>
-                                            <th width="30%">Contrato/Imóvel</th>
+                                            <th width="20%">Contrato/Imóvel</th>
+                                            <th width="20%">Locatário</th>
                                             <th width="13%">Desconto (R$)</th>
                                             <th width="10%" class="text-center">Dt. Registro</th>
                                             <th data-orderable="false" width="7%">&nbsp;</th>
@@ -61,6 +62,7 @@
                                             <td class="text-center"><?= $item['idDiscount'] ?></td>
                                             <td><?= $item['desDescription'] ?></td>
                                             <td><?= $item['contractCode']."/".$item['immobileDescription'] ?></td>
+                                            <td><?= $item['renterName'] ?></td>
                                             <td class="text-right"><?= number_format($item['desValue'], 2, ",", ".") ?></td>
                                             <td class="text-center"><?= date('d/m/Y', strtotime($item['dtRegister'])) ?></td>
                                             <td class="text-center">
@@ -77,7 +79,7 @@
                                         <?php if (!empty($totalValues)): ?>
                                         <tbody class="footer">
                                             <tr>
-                                                <th colspan="3" class="text-right">Total Geral</th>
+                                                <th colspan="4" class="text-right">Total Geral</th>
                                                 <th class="text-right"><?=number_format($totalValues, 2, ",", ".")?></th>
                                                 <th colspan="2">&nbsp;</th>
                                             </tr>

@@ -34,6 +34,25 @@
     height: 100px;
 }
 
+.codeContract {
+    font-size: 23px !important;
+    font-weight: bold;
+}
+
+.codeReceipt {
+    font-size: 15px !important;
+    font-weight: bold;
+}
+
+.money {
+    text-align: right;
+}
+
+textarea#desNote {
+    resize: vertical;
+    font-weight: bold;
+}
+
 @media only screen and (max-width: 768px) {
     .dropdown-toggle {
         display: none !important;
@@ -42,4 +61,14 @@
     .table tbody.footer {
         display: none !important;
     }
+
+    /*.codeContract {
+        font-size: 23px !important;
+        font-weight: bold;
+    }
+
+    .codeReceipt {
+        font-size: 23px !important;
+        font-weight: bold;
+    }*/
 }

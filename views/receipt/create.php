@@ -44,41 +44,64 @@
                                         <!-- box body -->
                                         <div class="box-body">
                                             <div class="row">
-                                                <div class="col-md-1">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desCode">Código:</label>
-                                                        <input type="text" name="desCode" class="form-control text-center" style="font-size: 20px; font-weight: bold" id="desCode" value="<?= $codigo ?>" maxlength="10" placeholder="Código" readonly
-                                                        <?php if (!empty($data)): ?> value="<?= $data['receiptCode'] ?>" <?php endif; ?>>
+                                                        <input type="text" name="desCode" class="form-control text-center codeReceipt" id="desCode" value="<?= str_pad($codigo, 4, "0",STR_PAD_LEFT) ?>" maxlength="10" placeholder="Código" readonly autofocus
+                                                        <?php if (!empty($data)): ?> value="<?= $data['desCode'] ?>" <?php endif; ?>>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="idContract">Contrato:</label>
-                                                        <select name="idContract" id="idContract" class="form-control select" autofocus>
+                                                        <select name="idContract" id="idContract" class="form-control select">
+                                                            <option>Selecione</option>
                                                         <?php foreach ($contract as $item): ?>
-                                                            <option value="<?= $item['desCode'] ?>"<?php if (!empty($data) && $data['contractCode'] === $item['desCode']): ?>selected<?php endif; ?>><?= $item['desCode'] . "/" . $item['desRenter'] ?></option>
+                                                            <option value="<?= $item['idContract'] ?>"<?php if (!empty($data) && $data['contractCode'] === $item['desCode']): ?>selected<?php endif; ?>><?= $item['desCode'] . "/" . $item['desRenter'] ?></option>
                                                         <?php endforeach; ?>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-1">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
-                                                        <label for="desPaymentInterest">Juros:</label>
-                                                        <input type="number" name="desPaymentInterest" id="desPaymentInterest" min="1" placeholder="Juros" class="form-control"
-                                                        <?php if (!empty($data)): ?> value="<?= $data['desPaymentInterest'] ?>" <?php endif; ?>>
+                                                        <label for="desFined">Multa:</label>
+                                                        <input type="text" name="desFined" id="desFined" class="form-control money" placeholder="R$ 0,00"
+                                                        <?php if (!empty($data)): ?> value="<?= $data['desFined'] ?>" <?php endif; ?>>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="desInterest">Juros:</label>
+                                                        <input type="text" name="desInterest" id="desInterest" class="form-control money" placeholder="R$ 0,00"
+                                                        <?php if (!empty($data)): ?> value="<?= $data['desInterest'] ?>" <?php endif; ?>>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <div class="form-group">
+                                                        <label for="desPortions">Desconto:</label>
+                                                        <select name="desPortions[]" id="desPortions" class="form-control select" disabled multiple data-placeholder="Selecione"></select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="desMonth">Mês:</label>
-                                                        <input type="month" name="desMonth" id="desMonth" class="form-control" placeholder="Mês">
+                                                        <input type="text" name="desMonth" id="desMonth" class="form-control" placeholder="Mês" style="text-align: center">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="form-group">
-                                                        <label for="dtSignature">Data Assinatura:</label>
-                                                        <input type="date" name="dtSignature" class="form-control" id="dtSignature" placeholder="Data Assinatura"
-                                                            <?php if (!empty($data)): ?> value="<?= $data['dtInitial'] ?>" <?php endif; ?>>
+                                                        <label for="desValue">Total:</label>
+                                                        <input type="text" name="desValue" id="desValue" class="form-control money" style="font-weight: bold" placeholder="R$ 0,00" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="desNote">Anotações:</label>
+                                                        <textarea name="desNote" id="desNote" cols="1" rows="3" maxlength="254" class="form-control" placeholder="Anotações" onclick="this.select()"></textarea>
                                                     </div>
                                                 </div>
                                             </div>

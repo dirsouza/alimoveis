@@ -47,7 +47,7 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desCode">Código:</label>
-                                                        <input type="text" name="desCode" class="form-control text-center" style="font-size: 28px" id="desCode" value="<?= $codigo ?>" maxlength="10" placeholder="Código" readonly
+                                                        <input type="text" name="desCode" class="form-control text-center codeContract" id="desCode" value="<?= $codigo ?>" maxlength="10" placeholder="Código" readonly
                                                         <?php if (!empty($data)): ?> value="<?= $data['desCode'] ?>" <?php endif; ?>>
                                                     </div>
                                                 </div>
@@ -107,7 +107,7 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desValue">Valor:</label>
-                                                        <input type="text" name="desValue" class="form-control" id="desValue" placeholder="R$ 0,00"
+                                                        <input type="text" name="desValue" class="form-control money" id="desValue" placeholder="R$ 0,00"
                                                         <?php if (!empty($data)): ?> value="<?= $data['desValue'] ?>" <?php endif; ?>>
                                                     </div>
                                                 </div>

@@ -15,11 +15,13 @@ class Discount extends Model
                                                     tbdiscount.desDescription,
                                                     tbdiscount.idContract,
                                                     tbcontract.desCode AS 'contractCode',
+                                                    tbrenter.desName AS 'renterName',
                                                     tbimmobile.desDescription AS 'immobileDescription',
                                                     tbdiscount.desValue,
                                                     tbdiscount.dtRegister
                                             FROM tbdiscount INNER JOIN tbcontract USING(idContract)
-                                            INNER JOIN tbimmobile ON tbcontract.idImmobile = tbimmobile.idImmobile");
+                                            INNER JOIN tbimmobile ON tbcontract.idImmobile = tbimmobile.idImmobile
+                                            INNER JOIN tbrenter ON tbcontract.idRenter = tbrenter.idRenter");
         } catch (\PDOException $e) {
             $_SESSION['error'] = array(
                 'type' => "danger",

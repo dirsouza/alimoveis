@@ -48,27 +48,25 @@
                                         <thead>
                                         <tr>
                                             <th width="3%" class="text-center">#</th>
-                                            <th>Contrato/Imóvel</th>
-                                            <th>Juros</th>
-                                            <th>Mês</th>
-                                            <th width="10%" class="text-center">Dt. Assinatura</th>
-                                            <th width="10%" class="text-center">Pago</th>
-                                            <th width="10%" class="text-center">Dt. Registro</th>
+                                            <th width="30%">Contrato/Imóvel</th>
+                                            <th>Locatário</th>
+                                            <th width="15%">Período</th>
+                                            <th width="12%" class="text-center">Dt. Registro</th>
+                                            <?php if (count($receipt) > 0 ): ?>
                                             <th data-orderable="false" width="10%">&nbsp;</th>
+                                            <?php endif; ?>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <?php foreach ($receipt as $item): ?>
                                         <tr>
                                             <td class="text-center"><?= $item['receiptCode'] ?></td>
-                                            <td><?= $item['contractCode'] ?></td>
-                                            <td><?= $item['desPaymentInterest'] ?></td>
-                                            <td><?= $item['desMonth'] ?></td>
-                                            <td><?= $item['dtSignature'] ?></td>
-                                            <td><?= $item['desPayment'] ?></td>
-                                            <td><?= $item['dtRegister'] ?></td>
+                                            <td><?= $item['contractCode'] . "/" . $item['immobileDescription'] ?></td>
+                                            <td><?= $item['renterName'] ?></td>
+                                            <td class="text-center"><?= $item['desMonth'] ?></td>
+                                            <td class="text-center"><?= $item['dtRegister'] ?></td>
                                             <td class="text-center">
-                                                <a href="/receipt/receipt/<?= $item['desCode'] ?>" class="btn bg-purple btn-xs btn-flat" target="_blank" data-toggle="tooltip" data-placement="top" title data-original-title="Recibo">
+                                                <a href="/receipt/receipt/<?= $item['idReceipt'] ?>" class="btn bg-purple btn-xs btn-flat" target="_blank" data-toggle="tooltip" data-placement="top" title data-original-title="Recibo">
                                                     <i class="fa fa-file-text"></i>
                                                 </a>
                                                 <a href="/receipt/update/<?= $item['idReceipt'] ?>" class="btn btn-primary btn-xs btn-flat" data-toggle="tooltip" data-placement="top" title data-original-title="Editar">

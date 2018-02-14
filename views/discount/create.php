@@ -53,10 +53,10 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label for="idContract">Contrato:</label>
+                                                        <label for="idContract">Contrato/Locatário:</label>
                                                         <select name="idContract" id="idContract" class="form-control select">
                                                             <?php foreach ($contract as $item): ?>
-                                                            <option value="<?= $item['idContract'] ?>" <?php if (!empty($data) && $data['idContract'] === $item['idContract']): ?>selected<?php endif; ?>><?= $item['desCode']."/".$item['desImmobile'] ?></option>
+                                                            <option value="<?= $item['idContract'] ?>" <?php if (!empty($data) && $data['idContract'] === $item['idContract']): ?>selected<?php endif; ?>><?= $item['desCode']."/".$item['desRenter'] ?></option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>
@@ -64,7 +64,7 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desValue">Valor:</label>
-                                                        <input type="text" name="desValue" class="form-control" id="desValue" placeholder="R$ 0,00"
+                                                        <input type="text" name="desValue" class="form-control money" id="desValue" placeholder="R$ 0,00"
                                                             <?php if (!empty($data)): ?> value="<?= $data['desValue'] ?>" <?php endif; ?>>
                                                     </div>
                                                 </div>

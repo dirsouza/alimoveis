@@ -56,8 +56,9 @@
                                                         <label for="idNation">Nascionalidade:</label>
                                                         <select name="idNation" id="idNation" class="form-control select">
                                                             <?php foreach ($nationality as $item): ?>
-                                                            <optgroup label="<?= $item['desNation'] ?>"></optgroup>
-                                                            <option value="<?= $item['idNation'] ?>" <?php if ($item['desNationality'] === "Brasileiro(a)"): ?> selected <?php endif; ?>><?= $item['desNationality'] ?></option>
+                                                            <optgroup label="<?= $item['desNation'] ?>">
+                                                                <option value="<?= $item['idNation'] ?>" <?php if ($item['desNationality'] === "Brasileiro(a)"): ?> selected <?php endif; ?>><?= $item['desNationality'] ?></option>
+                                                            </optgroup>
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>

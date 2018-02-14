@@ -15,8 +15,12 @@
             <script src="../../lib/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
             <!-- Slimscroll -->
             <script src="../../lib/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+            <!-- Moment -->
+            <script src="../../lib/plugins/moment/js/moment.js"></script>
             <!-- Date Picker -->
             <script src="../../lib/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+            <!-- Date Picker-ranger -->
+            <script src="../../lib/plugins/daterangerpicker/js/daterangepicker.js"></script>
             <!-- DataTables -->
             <script src="../../lib/plugins/datatables/js/jquery.dataTables.min.js"></script>
             <script src="../../lib/plugins/datatables/js/dataTables.bootstrap.min.js"></script>
@@ -31,6 +35,8 @@
             <script src="../../lib/plugins/jquery-validation/jquery.validate.min.js"></script>
             <!-- Toastr -->
             <script src="../../lib/plugins/toastr/js/toastr.min.js"></script>
+            <!-- Maskmoney -->
+            <script src="../../lib/plugins/jquery-maskmoney/js/jquery.maskMoney.min.js"></script>
             <!-- AdminLTE App -->
             <script src="../../lib/template/js/adminlte.min.js"></script>
             <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -51,16 +57,12 @@
                     <?php break;
                 case "contract": ?>
                     <script src="../../lib/personal/js/contract.js"></script>
-                    <script src="../../lib/plugins/jquery-maskmoney/js/jquery.maskMoney.min.js"></script>
-                    <script src="../../lib/plugins/moment/js/moment.js"></script>
                     <?php break;
                 case "discount": ?>
                     <script src="../../lib/personal/js/discount.js"></script>
-                    <script src="../../lib/plugins/jquery-maskmoney/js/jquery.maskMoney.min.js"></script>
                     <?php break;
                 case "receipt": ?>
                     <script src="../../lib/personal/js/receipt.js"></script>
-                    <script src="../../lib/plugins/jquery-maskmoney/js/jquery.maskMoney.min.js"></script>
                     <?php break;
                 case "user": ?>
                     <script src="../../lib/personal/js/user.js"></script>

@@ -59,6 +59,22 @@ $app->get('/receipt/create', function () use ($app) {
 $app->post('/receipt/create', function () {
     Login::verifyLogin();
 
+    if (array_key_exists("desPortions", $_POST)) {
+        $portions = null;
+        foreach ($_POST['desPortions'] as $value) {
+            if(end($_POST['desPortions']) === $value) {
+                $portions .= $value;
+            } else {
+                $portions .= $value.",";
+            }
+        }
+        $_POST['desPortions'] = $portions;
+    } else {
+        $_POST['desPortions'] = null;
+    }
+
+    //print_r($_POST); exit;
+
     $receipt = new Receipt();
     $receipt->setData($_POST);
     $receipt->insert();
@@ -132,4 +148,44 @@ $app->get('/receipt/contract/:desCode', function ($desCode) use ($app) {
         'mesFull' => $mesFull,
         'dateFull' => $dateFull
     ));
+});
+
+$app->get('/receipt/consulting/contract/:idContract', function($idContract) use ($app) {
+    Login::verifyLogin();
+
+    $contract = Contract::contractId($idContract);
+    $payments = Receipt::searchLastPayment($idContract);
+    $portions = Receipt::searchPortions($idContract);
+
+    if (is_array($payments) && count($payments)) {
+        $desPayment = end($payments);
+        $desPayment = explode(" - ", $desPayment['desMonth']);
+        $desPayment = end($desPayment);
+        $desPayment = date('Y-m-d', strtotime(str_replace("/", "-", $desPayment)));
+        $newDate = date("Y-m-d");
+        $diff = strtotime($desPayment) - strtotime($newDate);
+        $month = abs(floor($diff /(60*60*24*30)))-1;
+
+        if ($month > 0) {
+            $fined = ($contract[0]['desValue'] * $month) * 0.02;
+        } else {
+            $fined = null;
+        }
+    } else {
+        $fined = ($contract[0]['desValue'] * $contract[0]['desDeadline']) * 0.02;
+    }
+
+    $dayMaturity = date('d', strtotime($contract[0]['dtInitial']));
+    $dayCurrent = date("d");
+    $diff = $dayCurrent - $dayMaturity;
+
+    if ($diff > 0) {
+        $interest = $diff * 0.00033;
+        $interest = round($contract[0]['desValue'] * $interest, 2);
+    } else {
+        $interest = null;
+    }
+
+    $array = array($portions, $fined, $interest, $contract[0]['desValue']);
+    echo json_encode($array);
 });
