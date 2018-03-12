@@ -62,7 +62,11 @@
                     <script src="../../lib/personal/js/discount.js"></script>
                     <?php break;
                 case "receipt": ?>
-                    <script src="../../lib/personal/js/receipt.js"></script>
+                    <?php if ($_SESSION['type'] === "create"): ?>
+                    <script src="../../lib/personal/js/receiptc.js"></script>
+                    <?php else: ?>
+                    <script src="../../lib/personal/js/receiptu.js"></script>
+                    <?php endif; ?>
                     <?php break;
                 case "user": ?>
                     <script src="../../lib/personal/js/user.js"></script>

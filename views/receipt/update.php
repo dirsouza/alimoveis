@@ -4,12 +4,12 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Atualizar Dados do Contrato
+                        Atualizar Dados do Recibo
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="/renter"><i class="glyphicon glyphicon-list-alt"></i> Contrato</a></li>
-                        <li class="active"><i class="fa fa-pencil"></i> Atualizar Dados do Contrato</li>
+                        <li><a href="/receipt"><i class="fa fa-file-text"></i> Recibo</a></li>
+                        <li class="active"><i class="fa fa-pencil"></i> Atualizar Dados do Recibo</li>
                     </ol>
                 </section>
 
@@ -40,70 +40,62 @@
                                 <!-- box-body -->
                                 <div class="box-body">
                                     <!-- form start -->
-                                    <form id="frmContract" action="/contract/update/<?= $contract['idContract'] ?>" method="post">
+                                    <form id="frmContract" action="/contract/update/<?= $receipt['idReceipt'] ?>" method="post">
                                         <!-- box body -->
                                         <div class="box-body">
                                             <div class="row">
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="desCode">Código:</label>
-                                                        <input type="text" name="desCode" class="form-control text-center" style="font-size: 28px" id="desCode" value="<?= $contract['desCode'] ?>" maxlength="10" placeholder="Código" readonly>
+                                                        <input type="text" name="desCode" class="form-control text-center codeReceipt" id="desCode" value="<?= str_pad($receipt['idReceipt'], 4, "0",STR_PAD_LEFT) ?>" readonly>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-5">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="idLocator">Locador:</label>
-                                                        <select name="idLocator" id="idLocator" class="form-control select" autofocus>
-                                                            <?php foreach ($locator as $item): ?>
-                                                                <option value="<?= $item['idLocator'] ?>"<?php if ($item['idLocator'] === $contract['idLocator']): ?>selected<?php endif; ?>><?= $item['desName'] ?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>
+                                                        <label for="idContract">Contrato:</label>
+                                                        <input type="hidden" id="idContract" value="<?= $contract['idContract'] ?>">
+                                                        <input type="text" name="idContract" class="form-control" value="<?= $contract['desCode'] . "/" . $contract['desRenter'] ?>" readonly>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-5">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
-                                                        <label for="idRenter">Locatário:</label>
-                                                        <select name="idRenter" id="idRenter" class="form-control select">
-                                                            <?php foreach ($renter as $item): ?>
-                                                                <option value="<?= $item['idRenter'] ?>"<?php if ($item['idRenter'] === $contract['idRenter']): ?>selected<?php endif; ?>><?= $item['desName'] ?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>
+                                                        <label for="desFined">Multa:</label>
+                                                        <input type="text" name="desFined" id="desFined" class="form-control money" placeholder="R$ 0,00" value="<?= (($receipt['desFined'] !== "0") ? "R$ " . number_format($receipt['desFined'], 2, ',', '.') : null) ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="desInterest">Juros:</label>
+                                                        <input type="text" name="desInterest" id="desInterest" class="form-control money" placeholder="R$ 0,00" value="<?= (($receipt['desInterest'] !== "0") ? "R$ " . number_format($receipt['desInterest'], 2, ',', '.') : null) ?>">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-5">
+                                                <div class="col-md-7">
                                                     <div class="form-group">
-                                                        <label for="idImmobile">Imóvel:</label>
-                                                        <select name="idImmobile" id="idImmobile" class="form-control select">
-                                                            <?php foreach ($immobile as $item): ?>
-                                                                <option value="<?= $item['idImmobile'] ?>"<?php if ($item['idImmobile'] === $contract['idImmobile']): ?>selected<?php endif; ?>><?= $item['desDescription'] ?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>
+                                                        <label for="desPortions">Desconto:</label>
+                                                        <input type="hidden" id="optPortions" value="<?= $receipt['desPortions'] ?>">
+                                                        <select name="desPortions[]" id="desPortions" class="form-control select" disabled multiple data-placeholder="Selecione"></select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-1">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label for="desDeadline">Prazo:</label>
-                                                        <input type="number" name="desDeadline" class="form-control" id="desDeadline" value="<?= $contract['desDeadline'] ?>" min="1" placeholder="Prazo">
+                                                        <label for="desMonth">Mês:</label>
+                                                        <input type="text" name="desMonth" id="desMonth" class="form-control" placeholder="Mês" style="text-align: center" value="<?= $receipt['desMonth'] ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="form-group">
-                                                        <label for="dtInitial">Data Inicial:</label>
-                                                        <input type="date" name="dtInitial" class="form-control" id="dtInitial" value="<?= $contract['dtInitial'] ?>" placeholder="Data Inicial">
+                                                        <label for="desValue">Total:</label>
+                                                        <input type="text" name="desValue" id="desValue" class="form-control money" style="font-weight: bold" placeholder="R$ 0,00" value="<?= (($receipt['desValue'] !== "0") ? "R$ " . number_format($receipt['desValue'], 2, ',', '.') : null) ?>" readonly>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="dtFinal">Data Final:</label>
-                                                        <input type="date" name="dtFinal" class="form-control" id="dtFinal" value="<?= $contract['dtFinal'] ?>" placeholder="Data Final">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <label for="desValue">Valor:</label>
-                                                        <input type="text" name="desValue" class="form-control" id="desValue" value="<?= "R$ " . number_format($contract['desValue'],2,",",".") ?>" placeholder="R$ 0,00">
+                                                        <label for="desNote">Anotações:</label>
+                                                        <textarea name="desNote" id="desNote" cols="1" rows="3" maxlength="254" class="form-control" placeholder="Anotações" onclick="this.select()"><?= $receipt['desNote'] ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -111,7 +103,7 @@
                                         <!-- box footer -->
                                         <div class="box-footer modal-footer">
                                             <button type="submit" class="btn btn-flat btn-primary">Atualizar</button>
-                                            <button type="button" class="btn btn-flat bg-orange" onclick="javascript: location.href='/contract'">Cancelar</button>
+                                            <button type="button" class="btn btn-flat bg-orange" onclick="javascript: location.href='/receipt'">Cancelar</button>
                                         </div>
                                     </form>
                                 </div>

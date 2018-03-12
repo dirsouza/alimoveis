@@ -1,5 +1,6 @@
 <?php
 
+use ALUImoveis\Models\GExtenso;
 use ALUImoveis\Models\Login;
 use ALUImoveis\Models\Contract;
 use ALUImoveis\Models\Receipt;
@@ -20,6 +21,7 @@ $app->get('/receipt', function () use ($app) {
     unset($_SESSION['msg']);
 
     $_SESSION['page'] = "receipt";
+    $_SESSION['type'] = "create";
 
     $app->render('default/header.php', $user->getValues());
     $app->render('default/panel.php');
@@ -38,19 +40,18 @@ $app->get('/receipt/create', function () use ($app) {
 
     $codigo = Receipt::generateCode();
     $contract = Contract::listAll();
-    $month = Receipt::month();
 
     (isset($_SESSION['data'])) ? $data = $_SESSION['data'] : $data = NULL;
     unset($_SESSION['data']);
 
     $_SESSION['page'] = "receipt";
+    $_SESSION['type'] = "create";
 
     $app->render('default/header.php', $user->getValues());
     $app->render('default/panel.php');
     $app->render('receipt/create.php', array(
         'codigo' => $codigo,
         'contract' => $contract,
-        'month' => $month,
         'data' => $data
     ));
     $app->render('default/footer.php');
@@ -73,7 +74,17 @@ $app->post('/receipt/create', function () {
         $_POST['desPortions'] = null;
     }
 
-    //print_r($_POST); exit;
+    if (array_key_exists("desFined", $_POST)) {
+        if ($_POST['desFined'] === "") {
+            $_POST['desFined'] = 0;
+        }
+    }
+
+    if (array_key_exists("desInterest", $_POST)) {
+        if ($_POST['desInterest'] === "") {
+            $_POST['desInterest'] = 0;
+        }
+    }
 
     $receipt = new Receipt();
     $receipt->setData($_POST);
@@ -90,25 +101,50 @@ $app->get('/receipt/update/:idReceipt', function ($idReceipt) use ($app) {
     $user->getUser((int) $_SESSION[Login::SESSION]['idUser']);
 
     $receipt = Receipt::receiptId((int) $idReceipt);
-    $locator = Locator::listAll();
-    $renter = Renter::listAll();
-    $immobile = Immobile::listAll();
+    $contract = Contract::listAll();
+    $portions = Receipt::searchPortions($contract[0]['idContract']);
 
     $_SESSION['page'] = "receipt";
+    $_SESSION['type'] = "update";
 
     $app->render('default/header.php', $user->getValues());
     $app->render('default/panel.php');
     $app->render('receipt/update.php', array(
         'receipt' => $receipt[0],
-        'locator' => $locator,
-        'renter' => $renter,
-        'immobile' => $immobile
+        'contract' => $contract[0],
+        'portions' => $portions
     ));
     $app->render('default/footer.php');
 });
 
 $app->post('/receipt/update/:idReceipt', function ($idReceipt) {
     Login::verifyLogin();
+
+    if (array_key_exists("desPortions", $_POST)) {
+        $portions = null;
+        foreach ($_POST['desPortions'] as $value) {
+            if(end($_POST['desPortions']) === $value) {
+                $portions .= $value;
+            } else {
+                $portions .= $value.",";
+            }
+        }
+        $_POST['desPortions'] = $portions;
+    } else {
+        $_POST['desPortions'] = null;
+    }
+
+    if (array_key_exists("desFined", $_POST)) {
+        if ($_POST['desFined'] === "") {
+            $_POST['desFined'] = 0;
+        }
+    }
+
+    if (array_key_exists("desInterest", $_POST)) {
+        if ($_POST['desInterest'] === "") {
+            $_POST['desInterest'] = 0;
+        }
+    }
 
     $receipt = new Receipt();
     $receipt->getData((int) $idReceipt);
@@ -162,8 +198,18 @@ $app->get('/receipt/consulting/contract/:idContract', function($idContract) use 
         $desPayment = explode(" - ", $desPayment['desMonth']);
         $desPayment = end($desPayment);
         $desPayment = date('Y-m-d', strtotime(str_replace("/", "-", $desPayment)));
+        $dtPayment = new DateTime($desPayment);
+        $dtCurrent = new DateTime();
+
+        if ($dtCurrent > $dtPayment) {
+            $month = $dtCurrent->diff($dtPayment)->format("%m");
+            $fined = ($contract[0]['desValue'] * $month) * 0.02;
+        } else {
+            $fined = null;
+        }
+    } else {
         $newDate = date("Y-m-d");
-        $diff = strtotime($desPayment) - strtotime($newDate);
+        $diff = strtotime($contract[0]['dtInitial']) - strtotime($newDate);
         $month = abs(floor($diff /(60*60*24*30)))-1;
 
         if ($month > 0) {
@@ -171,8 +217,6 @@ $app->get('/receipt/consulting/contract/:idContract', function($idContract) use 
         } else {
             $fined = null;
         }
-    } else {
-        $fined = ($contract[0]['desValue'] * $contract[0]['desDeadline']) * 0.02;
     }
 
     $dayMaturity = date('d', strtotime($contract[0]['dtInitial']));
@@ -186,6 +230,15 @@ $app->get('/receipt/consulting/contract/:idContract', function($idContract) use 
         $interest = null;
     }
 
-    $array = array($portions, $fined, $interest, $contract[0]['desValue']);
+    if (empty($payments)) {
+        $valueDay = $contract[0]['desValue'] / 30;
+    } else {
+        $valueDay = 0;
+    }
+
+    $dtContract = explode("-", $contract[0]['dtInitial']);
+    $dtContract = end($dtContract) . "-" . date("m-Y");
+
+    $array = array($portions, $fined, $interest, $contract[0]['desValue'], $valueDay, $dtContract);
     echo json_encode($array);
 });

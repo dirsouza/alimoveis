@@ -37,12 +37,12 @@ class Receipt extends Model
         }
     }
 
-    public static function contractId($id)
+    public static function receiptId($id)
     {
         try {
             $sql = new Dao();
-            return $sql->allSelect("SELECT * FROM tbcontract WHERE idContract = :IDCONTRACT", array(
-                ':IDCONTRACT' => $id
+            return $sql->allSelect("SELECT * FROM tbreceipt WHERE idReceipt = :IDRECEIPT", array(
+                ':IDRECEIPT' => $id
             ));
         } catch (\PDOException $e) {
             $_SESSION['error'] = array(
@@ -51,7 +51,7 @@ class Receipt extends Model
                 'title' => "Erro",
                 'msg' => "Não foi possível recuperar o registro.<br>" . $e->getMessage()
             );
-            header('location: /contract');
+            header('location: /receipt');
             exit;
         }
     }
@@ -71,7 +71,7 @@ class Receipt extends Model
                 'title' => "Erro",
                 'msg' => "Não foi possível recuperar o registro para atualização.<br>" . $e->getMessage()
             );
-            header('location: /contract/update/' . $id);
+            header('location: /receipt/update/' . $id);
             exit;
         }
     }
@@ -125,8 +125,7 @@ class Receipt extends Model
         try {
             $sql = new Dao();
             $result = $sql->allSelect(
-                "SELECT desMonth FROM tbreceipt WHERE idContract = :IDCONTRACT AND dtRegister BETWEEN (
-                            select dtInitial from tbcontract where idContract = :IDCONTRACT) and (NOW())", array(
+                "SELECT desMonth FROM tbreceipt WHERE idContract = :IDCONTRACT", array(
                 ':IDCONTRACT' => $idContract
             ));
 
@@ -143,16 +142,14 @@ class Receipt extends Model
             header("location: /receipt/create");
             exit;
         }
-
-        //$sql->closeConnection();
     }
 
-    public static function searchPortions($idContrac)
+    public static function searchPortions(int $id)
     {
         try {
             $sql = new Dao();
             $result = $sql->allSelect("SELECT idDiscount FROM tbdiscount WHERE idContract = :IDCONTRACT", array(
-                ':IDCONTRACT' => $idContrac
+                ':IDCONTRACT' => $id
             ));
 
             $results = array();
@@ -163,9 +160,10 @@ class Receipt extends Model
                         $discounts = $sql->allSelect("SELECT tbdiscount.desDescription AS 'discountDescription',
                                                                     tbportions.idPortions AS 'portionsId',
                                                                     tbportions.dtMaturity AS 'portionsMaturity',
-                                                                    tbportions.desValue AS 'portionsValue'
+                                                                    tbportions.desValue AS 'portionsValue',
+                                                                    tbportions.desPayment
                                                              FROM tbportions INNER JOIN tbdiscount USING(idDiscount)
-                                                             WHERE tbportions.idDiscount = $idValue AND tbportions.desPayment = 'N'
+                                                             WHERE tbportions.idDiscount = $idValue
                                                              ORDER BY tbportions.idPortions ASC");
 
                         if (is_array($discounts) && count($discounts) > 0) {
@@ -188,8 +186,6 @@ class Receipt extends Model
             header("location: /receipt/create");
             exit;
         }
-
-        //$sql->closeConnection();
     }
 
     public function insert()
@@ -220,10 +216,26 @@ class Receipt extends Model
                         ':DESNOTE' => $this->getdesNote(),
                         ':DESPAYMENT' => "Y"
                     ));
-                    if ($this->verifyInsertData()) {
-                        $_SESSION['msg'] = 'insert-success';
+
+                    if ($this->updatePortions()) {
+                        if ($this->verifyInsertData()) {
+                            $_SESSION['msg'] = 'insert-success';
+                        } else {
+                            $_SESSION['msg'] = 'insert-error';
+                        }
                     } else {
-                        $_SESSION['msg'] = 'insert-error';
+                        $sql->allQuery("DELETE FROM tbreceipt WHERE :IDRECEIPT", array(
+                            ':IDRECEIPT' => $_SESSION[Dao::SESSION]
+                        ));
+                        $_SESSION['error'] = array(
+                            'type' => "danger",
+                            'ico' => "fa-ban",
+                            'title' => "Erro",
+                            'msg' => "Não foi possível inserir o registro devido erro no Desconto."
+                        );
+                        $this->restoreData();
+                        header("location: /receipt/create");
+                        exit;
                     }
                 } catch (\PDOException $e) {
                     $_SESSION['error'] = array(
@@ -247,6 +259,34 @@ class Receipt extends Model
             $this->restoreData();
             header("location: /receipt/create");
             exit;
+        }
+    }
+
+    private function updatePortions()
+    {
+        try {
+            $sql = new Dao();
+
+            if (strstr($this->getdesPortions(), ",")) {
+                $portions = explode(",", $this->getdesPortions());
+
+                foreach ($portions as $value) {
+                    $sql->allQuery("UPDATE tbportions SET desPayment = :PAYMENT WHERE idPortions = :IDPORTIONS", array(
+                        ':PAYMENT' => "Y",
+                        ':IDPORTIONS' => $value
+                    ));
+                }
+            } else {
+                $sql->allQuery("UPDATE tbportions SET desPayment = :PAYMENT WHERE idPortions = :IDPORTIONS", array(
+                    ':PAYMENT' => "Y",
+                    ':IDPORTIONS' => $this->getdesPortions()
+                ));
+            }
+
+            return true;
+
+        } catch (\PDOException $e) {
+            return $e->getMessage();
         }
     }
 
@@ -326,14 +366,6 @@ class Receipt extends Model
         }
 
         if (empty(trim($this->getidContract()))) {
-            return false;
-        }
-
-        if (empty(trim($this->getdesFined()))) {
-            return false;
-        }
-
-        if (empty(trim($this->getdesInterest()))) {
             return false;
         }
 
@@ -428,11 +460,11 @@ class Receipt extends Model
             'idContract' => $this->getidContract(),
             'desFined' => $this->getdesFined(),
             'desInterest' => $this->getdesInterest(),
-            'desPortions' => $this->getdesPortions(),
             'desMonth' => $this->getdesMonth(),
             'desValue' => $this->getdesValue(),
             'desNote' => $this->getdesNote()
         );
+        $_SESSION['optRecovered'] = $this->getdesPortions();
     }
 
     public static function month()
