@@ -37,6 +37,8 @@
             <script src="../../lib/plugins/toastr/js/toastr.min.js"></script>
             <!-- Maskmoney -->
             <script src="../../lib/plugins/jquery-maskmoney/js/jquery.maskMoney.min.js"></script>
+            <!-- jQuery-slimScroll -->
+            <script src="../../lib/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
             <!-- AdminLTE App -->
             <script src="../../lib/template/js/adminlte.min.js"></script>
             <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
